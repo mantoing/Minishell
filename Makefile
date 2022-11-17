@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/17 23:53:06 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/18 03:22:05 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,10 @@ SRC = main.c \
 	  push_front.c \
 	  init.c \
 	  save_env.c \
-	  parse.c
+	  parse.c \
+	  divide_space.c \
+	  split_quote.c \
+	  get_env.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
 

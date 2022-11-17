@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 19:29:48 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/17 20:36:43 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/18 03:45:53 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	push_front(t_stack *stack, char *name, char *value)
 		return (0);
 	new_node->env_name = name;
 	new_node->env_value = value;
-	if (!stack->head.next)
+	if (stack->head.next == &stack->tail)
 		push_front_first(stack, new_node);
 	else
 		push_front_common(stack, new_node);

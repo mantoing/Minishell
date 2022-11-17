@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/17 23:04:13 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/18 03:42:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int main(int argc, char **argv, char **env)
 {
     // int ret;
     char *line;
-    t_stack env_stack;
+    t_info  info;
 
-    init_stack(&env_stack);
+    init_info(&info);
     (void)argc;
     (void)argv;
-   save_env(env, &env_stack);
+   save_env(env, info.env_stack);
    // save_env(env, &env_arr);
     // signal(SIGINT, handler);
     while (1)
@@ -52,7 +52,7 @@ int main(int argc, char **argv, char **env)
         line = readline("minishell$ ");
         if (line)
         {
-            parse(line);
+            parse(&info, line);
             add_history(line);
             free(line);
             line = NULL;
