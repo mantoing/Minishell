@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/17 23:19:55 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/18 03:45:20 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,27 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
+typedef struct s_input
+{
+	char	*cmd;
+	char	*opt;
+	char	*arg;
+}	t_input;
+
+typedef struct s_info
+{
+	t_stack	*env_stack;
+	t_input	input;
+}	t_info;
+
 int		push_back(t_stack *stack, char *name, char *value);
 int		push_front(t_stack *stack, char *name, char *value);
 int		save_env(char **env, t_stack *env_stack);
-void	init_stack(t_stack *stack);
+int		init_info(t_info *info);
 int		save_env(char **env, t_stack *env_stack);
-void	parse(char *line);
+void	divide_space(t_input *input, char *line);
+void	parse(t_info *info, char *line);
+char	*get_env(t_info *info, char *name, int *i);
+char	*split_quote(t_info *info, char *target);
 
 #endif
