@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_back.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 22:17:19 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/17 20:36:43 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/18 00:02:01 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	push_back_common(t_stack *stack, t_node *new_node)
 	stack->tail.prev->next = new_node;
 	stack->tail.prev = new_node;
 }
+
 int	push_back(t_stack *stack, char *name, char *value)
 {
 	t_node	*new_node;
