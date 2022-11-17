@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 20:42:59 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/03/30 14:33:17 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/22 18:39:15 by suhkim            #+#    #+#             */
+/*   Updated: 2022/03/27 16:29:03 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	ft_putnbr_fd(int nb, int fd)
+static void	ft_putu_fd(unsigned int num, int fd)
 {
-	if (fd < 0)
-		return ;
-	if (nb == -2147483648)
+	char	c;
+
+	if (num / 10)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		nb = 147483648;
+		ft_putu_fd(num / 10, fd);
 	}
-	if (nb < 0)
+	c = num % 10 + '0';
+	write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	num;
+
+	num = n;
+	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
-		nb *= -1;
+		num = -n;
+		write(fd, "-", 1);
 	}
-	if (nb < 10)
-	{
-		ft_putchar_fd(nb + 48, fd);
-		return ;
-	}
-	else
-		ft_putnbr_fd(nb / 10, fd);
-	ft_putnbr_fd(nb % 10, fd);
+	ft_putu_fd(num, fd);
 }

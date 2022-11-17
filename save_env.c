@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   save_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 19:26:34 by suhkim            #+#    #+#             */
-/*   Updated: 2022/03/27 15:51:04 by suhkim           ###   ########.fr       */
+/*   Created: 2022/11/17 22:59:29 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/17 23:02:54 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "./minishell.h"
+
+int save_env(char **env, t_stack *env_stack)
 {
-	return (c >= ' ' && c <= '~');
+    char    *pos;
+	int		i;
+	int		len;
+
+    i = 0;
+    while (*(env + i))
+    {
+		len = ft_strlen(*(env + i));
+        pos = ft_strchr(*(env + i), '=');
+        push_back(env_stack, ft_substr(*(env + i), 0, pos - *(env + i))\
+                , ft_substr(*(env + i), pos - *(env + i), len));
+        i++;
+    }
+    return (1);
 }

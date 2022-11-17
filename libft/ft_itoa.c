@@ -3,66 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 15:53:17 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/04/05 17:24:08 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/22 17:42:48 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/17 23:56:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-static size_t	numlen(int num)
+static int	cnt_num(int n)
 {
-	size_t		cnt;
-	long long	n;
+	unsigned int	num;
+	int				i;
 
-	n = num;
-	cnt = 0;
 	if (n == 0)
 		return (1);
-	else if (n < 0)
-	{
-		n *= -1;
-		cnt++;
-	}
-	while (n)
-	{
-		n /= 10;
-		cnt++;
-	}
-	return (cnt);
-}
-
-static void	trans(char *res, int num, int len)
-{
-	long long	n;
-
-	n = num;
+	i = 0;
+	num = n;
 	if (n < 0)
+		num = -n;
+	while (num)
 	{
-		n *= -1;
-		res[0] = '-';
+		i++;
+		num /= 10;
 	}
-	if (n >= 10)
-	{
-		trans(res, (n / 10), --len);
-		res[len] = (n % 10) + '0';
-	}
-	else
-		res[--len] = (n % 10) + '0';
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*res;
-	int		len;
+	char			*ans;
+	int				len;
+	unsigned int	num;
 
-	len = numlen(n);
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
+	len = cnt_num(n);
+	num = n;
+	if (n < 0)
+	{
+		num = -n;
+		len++;
+	}
+	ans = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ans)
 		return (0);
-	trans(res, n, len);
-	res[len] = '\0';
-	return (res);
+	ans[len] = 0;
+	while (len--)
+	{
+		ans[len] = num % 10 + '0';
+		num /= 10;
+	}
+	if (n < 0)
+		ans[0] = '-';
+	return (ans);
 }

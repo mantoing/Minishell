@@ -3,47 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 16:14:00 by wonseoyun         #+#    #+#             */
-/*   Updated: 2022/03/23 14:41:36 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/14 20:43:41 by suhkim            #+#    #+#             */
+/*   Updated: 2022/03/27 16:47:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-static	int	isspace(char c)
-{
-	if (c == '\t' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\v' || c == ' ')
-		return (1);
-	return (0);
-}
-
 int	ft_atoi(const char *str)
 {
-	int		i;
-	long	sign;
-	long	result;
+	long	ans;
+	int		sign;
+	int		count;
 
-	i = 0;
-	while (isspace(str[i]))
-		i++;
+	count = 0;
+	ans = 0;
 	sign = 1;
-	if (str[i] == '+' || str[i] == '-')
+	while (*str == ' ' || *str == '\t' || *str == '\v' || *str == '\r'
+		|| *str == '\n' || *str == '\f')
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*(str++) == '-')
+			sign = -1;
+	while (*str && *str >= '0' && *str <= '9')
 	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
+		count++;
+		ans = 10 * ans + (*str - '0');
+		str++;
+		if ((count > 19 && sign == -1) || (ans < 0 && sign == -1))
+			return ((int)(-9223372036854775807 - 1));
+		else if ((count > 19 && sign == 1) || (ans < 0 && sign == 1))
+			return ((int)9223372036854775807);
 	}
-	result = 0;
-	while (ft_isdigit(str[i]))
-	{
-		result *= 10;
-		result += str[i] - '0';
-		i++;
-	}
-	if (result < 0)
-		return ((sign + 1) / -2);
-	return (result * sign);
+	return (sign * (int)ans);
 }

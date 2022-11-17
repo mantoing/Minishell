@@ -3,33 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 14:13:53 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/03/23 15:07:56 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/11 18:33:12 by suhkim            #+#    #+#             */
+/*   Updated: 2022/03/27 15:57:00 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	i;
-	char	*dest_c;
+	unsigned char	*dptr;
+	unsigned char	*sptr;
 
-	if (!dest && !src)
-		return (NULL);
-	dest_c = (char *)dest;
-	i = 0;
-	if (dest > src)
+	if (dst == src)
+		return (dst);
+	dptr = (unsigned char *)dst;
+	sptr = (unsigned char *)src;
+	if (src < dst)
 	{
-		while (len--)
-			*(dest_c + len) = *(char *)(src + len);
+		while (len)
+		{
+			len--;
+			*(dptr + len) = *(sptr + len);
+		}
 	}
 	else
 	{
-		while (len--)
-			*dest_c++ = *(char *)src++;
+		while (len)
+		{
+			*dptr++ = *sptr++;
+			len--;
+		}
 	}
-	return (dest);
+	return (dst);
 }

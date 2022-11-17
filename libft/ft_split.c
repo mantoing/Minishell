@@ -3,105 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 16:26:28 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/04/06 16:21:37 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/22 15:14:36 by suhkim            #+#    #+#             */
+/*   Updated: 2022/03/27 16:22:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-char	**malloc_arr(char *str, char c)
+static int	check_set(char target, char set)
 {
-	size_t	cnt;
-	char	**arr;
+	return (target == set);
+}
 
+static int	cnt_word(const char *s, char c, int mode)
+{
+	int	cnt;
+	int	words;
+
+	words = 1;
 	cnt = 0;
-	if (!str)
-		return (NULL);
-	while (*str)
+	while (*s)
 	{
-		if (*str != c)
+		if (!check_set(*s, c) && (*(s + 1) == 0 || check_set(*(s + 1), c)))
 		{
 			cnt++;
-			while (*str != c && *str)
-				str++;
+			if (*(s + 1) == 0 && mode == 0)
+				return (cnt);
+			if (mode)
+				return (words);
 		}
-		else
-			str++;
+		words++;
+		s++;
 	}
-	arr = (char **)malloc(sizeof(char *) * (cnt + 1));
-	return (arr);
+	return (cnt);
 }
 
-char	*split_dup(char const *str, size_t len)
+static char	**freeall(char **carr, int cnt)
 {
-	char	*s;
-	size_t	i;
+	while (cnt--)
+		free(carr[cnt]);
+	free(carr);
+	return (0);
+}
+
+static int	set_words(char *set, const char *s, char c)
+{
+	int	i;
 
 	i = 0;
-	s = (char *)malloc(sizeof(char) * (len + 1));
+	while (*(s + i) && !check_set(*(s + i), c))
+	{
+		*(set + i) = *(s + i);
+		i++;
+	}
+	*(set + i) = 0;
+	return (i);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	int		cnt;
+	char	**carr;
+
 	if (!s)
 		return (0);
-	while (i < len)
-	{
-		s[i] = str[i];
-		i++;
-	}
-	s[i] = 0;
-	return (s);
-}
-
-size_t	split_len(char const *str, char c)
-{
-	size_t		len;
-
-	len = 0;
-	while (str[len] && str[len] != c)
-		len++;
-	return (len);
-}
-
-void	*allfree(char **str, size_t l)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] && i <= l)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	return (NULL);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	size_t		i;
-	size_t		len;
-	char		**arr;
-
-	i = 0;
-	len = 0;
-	arr = malloc_arr((char *)s, c);
-	if (!arr)
+	cnt = 0;
+	carr = (char **)malloc(sizeof(char *) * (cnt_word(s, c, 0) + 1));
+	if (!carr)
 		return (0);
 	while (*s)
 	{
-		if (*s != c)
+		if (!check_set(*s, c))
 		{
-			len = split_len(s, c);
-			arr[i] = split_dup(s, len);
-			s += len;
-			len = 0;
-			if (!arr[i++])
-				return (allfree(arr, i));
+			carr[cnt] = (char *)malloc(sizeof(char) * (cnt_word(s, c, 1) + 1));
+			if (!carr[cnt])
+				return (freeall(carr, cnt));
+			s += set_words(carr[cnt++], s, c);
 		}
 		else
 			s++;
 	}
-	arr[i] = 0;
-	return (arr);
+	carr[cnt] = 0;
+	return (carr);
 }
