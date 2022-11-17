@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 19:26:34 by suhkim            #+#    #+#             */
-/*   Updated: 2022/03/27 15:51:04 by suhkim           ###   ########.fr       */
+/*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/17 22:59:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "./minishell.h"
+
+void	init_stack(t_stack *stack)
 {
-	return (c >= ' ' && c <= '~');
+	stack->head.next = &stack->tail;
+	stack->tail.prev = &stack->head;
 }

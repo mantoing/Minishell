@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 14:47:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/04/06 16:25:57 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/03/22 19:00:50 by suhkim            #+#    #+#             */
+/*   Updated: 2022/03/27 16:31:20 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new -> next = *lst;
+	if (!lst)
+		return ;
+	new->next = *lst;
 	*lst = new;
 }
