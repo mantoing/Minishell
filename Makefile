@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/25 02:30:36 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/25 06:10:47 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRC = main.c \
 	  get_env.c \
 	  free_token.c \
 	  ft_fork.c \
-	  ft_pipe.c
+	  ft_pipe.c \
+	  ft_dup2.c \
+	  ft_close.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f

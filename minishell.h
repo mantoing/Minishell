@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/25 01:12:49 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 06:09:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_info
 	t_stack	*env_stack;
 	t_input	*input;
 	int		pipe_cnt;
+
 }	t_info;
 
 int		push_back_env(t_stack *stack, char *name, char *value);
@@ -74,5 +75,7 @@ int		ft_fork(t_info *info, t_token *pipe, int *read_fd, int *write_fd);
 char	*get_env(t_info *info, char *name, int *i);
 int		split_token(t_info *info, char *target);
 void	free_token(t_input *input);
+void	ft_close(int fd);
+void	ft_dup2(int fd1, int fd2);
 
 #endif
