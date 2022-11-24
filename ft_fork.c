@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 02:02:58 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 06:27:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_fork(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	t_token	*temp2;
 	char	**arg;
 	int		arg_size;
-	int		status;
 	pid_t	pid;
 
 	(void)read_fd;
@@ -58,16 +57,34 @@ int	ft_fork(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	}
 	if (pid == 0)
 	{
-		if (!ft_strncmp(*(arg), "echo", 4))
+		if (!ft_strncmp("echo", *(arg), ft_strlen(*(arg))))
 		{
-		//	printf("\n i'm echo \n");
+			ft_close(read_fd[1]);
+			ft_close(write_fd[0]);
+			ft_dup2(read_fd[0], STDIN_FILENO);
+			ft_dup2(write_fd[1], STDOUT_FILENO);
+			printf("echo %d %d\n", read_fd[0], write_fd[1]);
 			execve("/bin/echo", arg, NULL);
+		}
+		else if (!ft_strncmp("ls", *(arg), ft_strlen(*(arg))))
+		{
+			ft_close(read_fd[1]);
+			ft_close(write_fd[0]);
+			ft_dup2(read_fd[0], STDIN_FILENO);
+			ft_dup2(write_fd[1], STDOUT_FILENO);
+			printf("ls %d %d\n", read_fd[0], write_fd[1]);
+			execve("/bin/ls", arg, NULL);
+		}
+		else if (!ft_strncmp("cat", *(arg), ft_strlen(*(arg))))
+		{
+			ft_close(read_fd[1]);
+			ft_close(write_fd[0]);
+			ft_dup2(read_fd[0], STDIN_FILENO);
+			ft_dup2(write_fd[1], STDOUT_FILENO);
+			printf("cat %d %d\n", read_fd[0], write_fd[1]);
+			execve("/bin/cat", arg, NULL);
 		}
 		exit(1);
 	}
-	else
-	{
-		pid = wait(&status);
-	}
-	return (1);
+	return (pid);
 }
