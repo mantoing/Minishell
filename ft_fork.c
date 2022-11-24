@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 01:52:16 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 02:02:58 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ int	ft_fork(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 		conv_arg(temp2, arg, arg_size);
 		//exe_cmd(info, arg, read_fd, write_fd);
 	}
-//	if (pid == 0)
-//	{
-//		if (!ft_strncmp(*(arg), "echo", 4))
-//		{
-//		//	printf("\n i'm echo \n");
-//			execve("/bin/echo", arg, NULL);
-//		}
-//		exit(1);
-//	}
-//	else
-//	{
-//		pid = wait(&status);
-//	}
+	if (pid == 0)
+	{
+		if (!ft_strncmp(*(arg), "echo", 4))
+		{
+		//	printf("\n i'm echo \n");
+			execve("/bin/echo", arg, NULL);
+		}
+		exit(1);
+	}
+	else
+	{
+		pid = wait(&status);
+	}
 	return (1);
 }

@@ -6,11 +6,13 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 01:48:05 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 02:33:16 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+#include <string.h>
+
 
 int	check_name(char *target)
 {
@@ -43,7 +45,7 @@ char	*get_env(t_info *info, char *target, int *i)
 	temp = info->env_stack->head.next;
 	while (temp != &info->env_stack->tail)
 	{
-		if (!ft_strncmp(temp->env_name, name, ft_strlen(name)))
+		if (!ft_strncmp(name, temp->env_name, ft_strlen(temp->env_name)))
 			return (ft_strdup(temp->env_value));
 		temp = temp->next;
 	}
