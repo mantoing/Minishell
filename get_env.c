@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/24 16:59:41 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 01:48:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_env(t_info *info, char *target, int *i)
 
 	*i += 1;
 	str = ft_strdup("");
-	if (ft_isdigit(*(target)))
+	if (ft_isdigit(*(target + *i)))
 		return (str);
 	len = check_name(target + *i);
 	name = ft_substr(target + *i, 0, len);

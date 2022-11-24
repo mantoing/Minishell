@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 01:07:31 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 01:52:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ void	parse(t_info *info, char *line)
 			line += len;
 	}
 	ft_pipe(info);
-	/*
-	t_token *temp;
-	temp = info->input->head.next;
-	while (temp != &info->input->tail)
-	{
-		printf("%s\n", temp->token);
-		temp = temp->next;
-	}
+//	t_token *temp;
+//	temp = info->input->head.next;
+//	while (temp != &info->input->tail)
+//	{
+//		printf("%s\n", temp->token);
+//		temp = temp->next;
+//	}
 	//토큰 보기
-	*/
 	/*
 	pid = fork();
 	if (pid == 0)
