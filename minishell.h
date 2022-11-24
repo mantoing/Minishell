@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/25 06:09:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 07:31:00 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 	int				pipe;
+	int				heredoc;
+	int				redir_r;
+	int				redir_l;
+	int				append;
 	char			*token;
 }	t_token;
 
