@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_back.c                                        :+:      :+:    :+:   */
+/*   push_back_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 22:17:19 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/18 00:02:01 by jaeywon          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:59:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	push_back_common(t_stack *stack, t_node *new_node)
 	stack->tail.prev = new_node;
 }
 
-int	push_back(t_stack *stack, char *name, char *value)
+int	push_back_env(t_stack *stack, char *name, char *value)
 {
 	t_node	*new_node;
 
