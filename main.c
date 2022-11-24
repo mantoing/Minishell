@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/18 03:42:25 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/24 18:18:40 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int main(int argc, char **argv, char **env)
             parse(&info, line);
             add_history(line);
             free(line);
+            free_token(info.input);
             line = NULL;
         }
         else

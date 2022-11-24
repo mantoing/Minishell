@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:59:29 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/18 05:06:07 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/24 17:30:48 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	save_env(char **env, t_stack *env_stack)
 	{
 		len = ft_strlen(*(env + i));
 		pos = ft_strchr(*(env + i), '=');
-		push_front(env_stack, ft_substr(*(env + i), 0, pos - *(env + i)) \
+		push_front_env(env_stack, ft_substr(*(env + i), 0, pos - *(env + i)) \
 				, ft_substr(*(env + i), pos + 1 - *(env + i), len));
 		i++;
 	}

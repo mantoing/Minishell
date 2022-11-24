@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/18 03:22:05 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/25 01:05:00 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,19 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 SRC = main.c \
-	  push_back.c \
-	  push_front.c \
+	  push_back_token.c \
+	  push_front_token.c \
+	  push_back_env.c \
+	  push_front_env.c \
 	  init.c \
 	  save_env.c \
 	  parse.c \
-	  divide_space.c \
-	  split_quote.c \
-	  get_env.c
+	  split_token.c \
+	  get_env.c \
+	  free_token.c \
+	  ft_fork.c \
+	  ft_pipe.c
+
 OBJ = $(SRC:.c=.o)
 RM = rm -f
 

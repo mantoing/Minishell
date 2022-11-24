@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_front.c                                       :+:      :+:    :+:   */
+/*   push_front_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 19:29:48 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/18 03:45:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:59:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	push_front_common(t_stack *stack, t_node *new_node)
 	stack->head.next = new_node;
 }
 
-int	push_front(t_stack *stack, char *name, char *value)
+int	push_front_env(t_stack *stack, char *name, char *value)
 {
 	t_node	*new_node;
 
