@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 06:27:04 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 06:55:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	set_pipe(t_info *info, int *read_fd, int *write_fd, int pipe_idx)
 		pipe(write_fd);
 }
 
+/*
 void	wait_last_process(pid_t pid, int *flag)
 {
 	int	status;
@@ -57,6 +58,7 @@ void	wait_child_process(pid_t pid)
 	while (wait(&status) != -1)
 		;
 }
+*/
 
 int	ft_pipe(t_info *info)
 {
@@ -66,6 +68,7 @@ int	ft_pipe(t_info *info)
 	int		read_fd[2];
 	int		write_fd[2];
 	pid_t	test;
+	int		status;
 
 	i = 0;
 	pipe_idx = 0;
@@ -93,7 +96,7 @@ int	ft_pipe(t_info *info)
 			ft_close(read_fd[0]);
 			ft_close(read_fd[1]);
 		}
-		wait_child_process(test);
+		waitpid(test, &status, 0);
 		temp = temp->next;
 		i++;
 	}

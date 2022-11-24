@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 01:48:05 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 07:51:42 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,42 @@ static	int	isspace(char c)
 		|| c == '\r' || c == '\v' || c == ' ')
 		return (1);
 	return (0);
+}
+
+static int	is_redir(t_info *info, char *target)
+{
+	if (*target == '<')
+	{
+		if (*(target + 1) == '<')
+		{
+			push_back_token(info->input, ft_strdup("<<"));
+			info->input->tail.prev->heredoc = 1;
+			return (2);
+		}
+		else
+		{
+			push_back_token(info->input, ft_strdup("<"));
+			info->input->tail.prev->redir_l = 1;
+			return (1);
+		}
+	}
+	else if (*target == '>')
+	{
+		if (*(target + 1) == '>')
+		{
+			push_back_token(info->input, ft_strdup(">>"));
+			info->input->tail.prev->append = 1;
+			return (2);
+		}
+		else
+		{
+			push_back_token(info->input, ft_strdup(">"));
+			info->input->tail.prev->redir_r = 1;
+			return (1);
+		}
+	}
+	else
+		return (0);
 }
 
 int	split_token(t_info *info, char *target)
@@ -58,11 +94,19 @@ int	split_token(t_info *info, char *target)
 				break ;
 			else
 			{
-				push_back_token(info->input, "|");
+				push_back_token(info->input, ft_strdup("|"));
 				info->input->tail.prev->pipe = 1;
 				info->pipe_cnt++;
 				return (1);
 			}
+		}
+		else if ((*(target + i) == '<' ||  *(target + i) == '>') && \
+				quote == 0)
+		{
+			if (ft_strlen(str))
+				break ;
+			else
+				return (is_redir(info, target + i));
 		}
 		else
 		{

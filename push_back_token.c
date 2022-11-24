@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 22:17:19 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/24 22:48:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/25 07:57:15 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ static void	push_back_first(t_input *input, t_token *new_token)
 	new_token->prev = &input->head;
 	new_token->next = &input->tail;
 	new_token->pipe = 0;
+	new_token->heredoc = 0;
+	new_token->redir_r = 0;
+	new_token->redir_l = 0;
+	new_token->append = 0;
 	input->head.next = new_token;
 	input->tail.prev = new_token;
 }
@@ -26,6 +30,10 @@ static void	push_back_common(t_input *input, t_token *new_token)
 	new_token->prev = input->tail.prev;
 	new_token->next = &input->tail;
 	new_token->pipe = 0;
+	new_token->heredoc = 0;
+	new_token->redir_r = 0;
+	new_token->redir_l = 0;
+	new_token->append = 0;
 	input->tail.prev->next = new_token;
 	input->tail.prev = new_token;
 }
@@ -36,7 +44,7 @@ int	push_back_token(t_input *input, char *str)
 
 	if (!input)
 		return (0);
-	new_token = malloc(sizeof(t_node));
+	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (0);
 	new_token->token = str;
