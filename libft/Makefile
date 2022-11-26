@@ -6,7 +6,7 @@
 #    By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/27 14:00:57 by suhkim            #+#    #+#              #
-#    Updated: 2022/11/18 00:13:00 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/27 02:24:39 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,19 +69,19 @@ endif
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 $(NAME): $(OBJS_TARGET)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 bonus:
-	make WITH_BONUS=1 all
+	@make WITH_BONUS=1 all
 
 clean:
-	rm -f $(OBJS) $(OBJS_BONUS)
+	@rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

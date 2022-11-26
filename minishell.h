@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/25 07:31:00 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 05:17:06 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,27 @@ int		push_front_env(t_stack *stack, char *name, char *value);
 int		push_back_token(t_input *input, char *str);
 int		push_front_token(t_input *input, char *str);
 
-int		save_env(char **env, t_stack *env_stack);
 int		init_info(t_info *info);
 int		save_env(char **env, t_stack *env_stack);
-void	divide_space(t_input *input, char *line);
+char	*get_env(t_info *info, char *name, int *i);
+
 void	parse(t_info *info, char *line);
 int		ft_pipe(t_info *info);
-int		ft_fork(t_info *info, t_token *pipe, int *read_fd, int *write_fd);
-char	*get_env(t_info *info, char *name, int *i);
+void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd);
 int		split_token(t_info *info, char *target);
+void	del_token(t_input *input, t_token *target, int *arg_size);
 void	free_token(t_input *input);
+
 void	ft_close(int fd);
 void	ft_dup2(int fd1, int fd2);
+
+int		get_arg_size(t_info *info, t_token *arg, t_token *pipe);
+t_token	*get_first_arg(t_info *info, t_token *pipe);
+void	conv_arg(t_token *temp, char **arg, int arg_size);
+void	free_arg(char **arg, int arg_size);
+char	**redir_r(t_info *info, t_token *pipe);
+int		is_empty_arg(char **arg);
+int		cnt_arg_arr_size(char **arg);
+char	**arrange_arg(char **arg, int arg_size);
 
 #endif

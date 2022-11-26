@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 06:55:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/26 23:10:32 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,6 @@ void	set_pipe(t_info *info, int *read_fd, int *write_fd, int pipe_idx)
 		pipe(write_fd);
 }
 
-/*
-void	wait_last_process(pid_t pid, int *flag)
-{
-	int	status;
-
-	status = 0;
-	*flag = 0;
-	waitpid(pid, &status, 0);
-}
-
-void	wait_child_process(pid_t pid)
-{
-	int	status;
-	int	flag;
-
-	wait_last_process(pid, &flag);
-	status = 0;
-	while (wait(&status) != -1)
-		;
-}
-*/
-
 int	ft_pipe(t_info *info)
 {
 	t_token	*temp;
@@ -67,7 +45,7 @@ int	ft_pipe(t_info *info)
 	int		pipe_idx;
 	int		read_fd[2];
 	int		write_fd[2];
-	pid_t	test;
+	pid_t	pid;
 	int		status;
 
 	i = 0;
@@ -80,25 +58,19 @@ int	ft_pipe(t_info *info)
 		{
 			set_pipe(info, read_fd, write_fd, pipe_idx);
 			pipe_idx++;
-			/*
-			if (info->pipe_cnt == 0)
-			{
-				printf("read echo = %d %d\n", read_fd[0], read_fd[1]);
-			}
-			else
-			{
-				printf("read ls = %d %d\n", read_fd[0], read_fd[1]);
-			}
-			*/
-			test = ft_fork(info, temp, read_fd, write_fd);
+			pid = fork();
+			if (pid == 0)
+				ft_token_parse(info, temp, read_fd, write_fd);
 			if (info->pipe_cnt > 0)
 				info->pipe_cnt--;
 			ft_close(read_fd[0]);
 			ft_close(read_fd[1]);
 		}
-		waitpid(test, &status, 0);
 		temp = temp->next;
 		i++;
 	}
+	while (wait(&status) != -1)
+		;
+	waitpid(pid, &status, 0);
 	return (1);
 }
