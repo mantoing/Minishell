@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/25 07:10:24 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 04:11:09 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // {
 //     if (signum != SIGINT)
 //         return;
-//     printf("ctrl + c\n");
+//     //dprintf("ctrl + c\n");
 //     rl_on_new_line();
 //     rl_replace_line("", 1);
 //     rl_redisplay();
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **env)
         }
         else
         {
-            printf("ctrl + d\n");
+            //dprintf(2,"ctrl + d\n");
         }
     }
     return (0);

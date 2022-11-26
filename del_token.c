@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dup2.c                                          :+:      :+:    :+:   */
+/*   del_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 06:07:03 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 04:11:09 by suhkim           ###   ########.fr       */
+/*   Created: 2022/11/27 00:21:58 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/27 02:44:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-void	ft_dup2(int fd1, int fd2)
+void	del_token(t_input *input, t_token *target, int *arg_size)
 {
-	if (fd1 == 0 || fd1 == 1 || fd1 == 2)
+	t_token	*temp;
+
+	if (!target)
 		return ;
-	//dprintf(2,"hell\n");
-	dup2(fd1, fd2);
-	//dprintf(2,"hellowor\n");
-	ft_close(fd1);
+	temp = target;
+	target->prev->next = target->next;
+	target->next->prev = target->prev;
+	free(temp);
+	temp = NULL;
+	input->token_size -= 1;
+	*arg_size -= 1;
 }
