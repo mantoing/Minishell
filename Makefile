@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/27 05:57:49 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/27 07:54:08 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = main.c \
 	  check_redirection.c \
 	  redir_r.c \
 	  redir_l.c \
+	  append.c \
 	  arg_utils.c \
 	  arg_utils2.c \
 	  del_token.c 

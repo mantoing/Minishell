@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_r.c                                          :+:      :+:    :+:   */
+/*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 22:41:23 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 07:51:35 by suhkim           ###   ########.fr       */
+/*   Created: 2022/11/27 07:50:04 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/27 07:59:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static int	valid_redir_r(t_info *info, t_token *temp)
+static int	valid_append(t_info *info, t_token *temp)
 {
 	if (temp->next == &info->input->tail || temp->next->pipe \
 			|| temp->next->redir_r || temp->next->redir_l \
@@ -22,21 +22,21 @@ static int	valid_redir_r(t_info *info, t_token *temp)
 		return (1);
 }
 
-int	redir_r(t_info *info, t_token *target)
+int	append(t_info *info, t_token *target)
 {
-	int		fd;
+	int	fd;
 
-	if (valid_redir_r(info, target))
+	if (valid_append(info, target))
 	{
-		 fd = open(target->next->token,\
-				 O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		 if (fd < 0)
-		 {
-			 //error
-			 return (0);
-		 }
-		 ft_dup2(fd, STDOUT_FILENO);
-		 target = target->next->next;
+		fd = open(target->next->token,\
+		   	 O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd < 0)
+		{
+		    //error
+		    return (0);
+		}
+		ft_dup2(fd, STDOUT_FILENO);
+		target = target->next->next;
 	}
 	return (1);
 }

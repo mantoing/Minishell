@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:35:00 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 07:40:55 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 07:59:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ char	**check_redirection(t_info *info, t_token *pipe)
 		else if (target->redir_r)
 		{
 			if (!redir_r(info, target))
+			{
+				free_arg(arg, arg_size);
+				return (0);
+			}
+			target = target->next->next;
+			arg[i][0] = 0;
+			i++;
+			arg[i][0] = 0;
+		}
+		else if (target->append)
+		{
+			if (!append(info, target))
 			{
 				free_arg(arg, arg_size);
 				return (0);

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/27 05:57:36 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 07:53:50 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	**arrange_arg(char **arg, int arg_size);
 
 int		redir_l(t_info *info, t_token *pipe);
 int		redir_r(t_info *info, t_token *pipe);
+int		append(t_info *info, t_token *target);
 char	**check_redirection(t_info *info, t_token *pipe);
 
 #endif
