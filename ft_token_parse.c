@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 04:51:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 05:58:48 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	ft_dup2(read_fd[0], STDIN_FILENO);
 	ft_dup2(write_fd[1], STDOUT_FILENO);
 	//dprintf(2,"before redir_r\n");
-	arg = redir_r(info, pipe);
+	//arg = redir_r(info, pipe);
+	arg = check_redirection(info, pipe);
 	if (is_empty_arg(arg))
 		return free_arg(arg, 0);
 	//dprintf(2,"exe_cmd\n");

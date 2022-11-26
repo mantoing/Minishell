@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/27 05:17:06 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 05:57:36 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ int		get_arg_size(t_info *info, t_token *arg, t_token *pipe);
 t_token	*get_first_arg(t_info *info, t_token *pipe);
 void	conv_arg(t_token *temp, char **arg, int arg_size);
 void	free_arg(char **arg, int arg_size);
-char	**redir_r(t_info *info, t_token *pipe);
 int		is_empty_arg(char **arg);
 int		cnt_arg_arr_size(char **arg);
 char	**arrange_arg(char **arg, int arg_size);
+
+int		redir_l(t_info *info, t_token *pipe);
+int		redir_r(t_info *info, t_token *pipe);
+char	**check_redirection(t_info *info, t_token *pipe);
 
 #endif
