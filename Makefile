@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/27 03:38:40 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/27 05:57:49 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRC = main.c \
 	  ft_pipe.c \
 	  ft_dup2.c \
 	  ft_close.c \
+	  check_redirection.c \
 	  redir_r.c \
+	  redir_l.c \
 	  arg_utils.c \
 	  arg_utils2.c \
 	  del_token.c 

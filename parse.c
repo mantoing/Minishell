@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 04:11:09 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/27 07:44:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	parse(t_info *info, char *line)
 {
 	int		len;
-//	int		pid;
-//	int		status;
 
 	while (*(line))
 	{
@@ -26,28 +24,17 @@ void	parse(t_info *info, char *line)
 		else
 			line += len;
 	}
-	t_token *temp;
-	temp = info->input->head.next;
-	while (temp != &info->input->tail)
-	{
-		//dprintf(2,"%s\n", temp->token);
-		temp = temp->next;
-	}
+//	t_token *temp;
+//	temp = info->input->head.next;
+//	while (temp != &info->input->tail)
+//	{
+//		dprintf(2,"%s ", temp->token);
+//		dprintf(2, "heredoc : %d ", temp->heredoc);
+//		dprintf(2, "redir_l : %d ", temp->redir_l);
+//		dprintf(2, "redir_r : %d ", temp->redir_r);
+//		dprintf(2, "append  : %d\n", temp->append);
+//		temp = temp->next;
+//	}
 	//토큰 보기
 	ft_pipe(info);
-	/*
-	pid = fork();
-	if (pid == 0)
-	{
-		if (!ft_strncmp(cmd, "echo", 4))
-		{
-		//	//dprintf("\n i'm echo \n");
-		}
-		exit(1);
-	}
-	else
-	{
-		pid = wait(&status);
-	}
-	*/
 }
