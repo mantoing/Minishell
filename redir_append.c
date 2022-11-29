@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 07:50:04 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 07:59:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 00:44:46 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	valid_append(t_info *info, t_token *temp)
 		return (1);
 }
 
-int	append(t_info *info, t_token *target)
+int	redir_append(t_info *info, t_token *target)
 {
 	int	fd;
 
@@ -38,5 +38,7 @@ int	append(t_info *info, t_token *target)
 		ft_dup2(fd, STDOUT_FILENO);
 		target = target->next->next;
 	}
+	else
+		return (0);
 	return (1);
 }

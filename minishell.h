@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/27 07:53:50 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 08:17:50 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ typedef struct s_info
 	t_stack	*env_stack;
 	t_input	*input;
 	int		pipe_cnt;
-
 }	t_info;
+
 
 int		push_back_env(t_stack *stack, char *name, char *value);
 int		push_front_env(t_stack *stack, char *name, char *value);
@@ -93,7 +93,10 @@ char	**arrange_arg(char **arg, int arg_size);
 
 int		redir_l(t_info *info, t_token *pipe);
 int		redir_r(t_info *info, t_token *pipe);
-int		append(t_info *info, t_token *target);
+int		redir_append(t_info *info, t_token *target);
 char	**check_redirection(t_info *info, t_token *pipe);
+
+int		heredoc(t_info *info);
+void	unlink_all(t_info *info);
 
 #endif

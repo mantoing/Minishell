@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/27 04:11:09 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 08:20:17 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,23 @@ int main(int argc, char **argv, char **env)
     while (1)
     {
         line = readline("minishell$ ");
-        if (line)
+        if (!line)
+        {
+            //dprintf(2,"ctrl + d\n");
+            break ;
+        }
+        else if (*line != '\0')
         {
             parse(&info, line);
             add_history(line);
+            if (heredoc(&info))
+            {
+                ft_pipe(&info);
+                unlink_all(&info);
+            }
             free(line);
             free_token(info.input);
             line = NULL;
-        }
-        else
-        {
-            //dprintf(2,"ctrl + d\n");
         }
     }
     return (0);

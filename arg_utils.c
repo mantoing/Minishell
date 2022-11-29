@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:39:39 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 03:39:46 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 08:52:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_arg(char **arg, int arg_size)
 
 int	is_empty_arg(char **arg)
 {
-	if (!arg || !*(arg) || !**(arg))
+	if (!arg ||  !*(arg) || !**(arg))
 		return (1);
 	return (0);
 }

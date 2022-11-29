@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 07:44:41 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 03:01:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ void	parse(t_info *info, char *line)
 //		temp = temp->next;
 //	}
 	//토큰 보기
-	ft_pipe(info);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_r.c                                          :+:      :+:    :+:   */
+/*   unlink.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 22:41:23 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/30 00:45:13 by suhkim           ###   ########.fr       */
+/*   Created: 2022/11/30 08:16:25 by suhkim            #+#    #+#             */
+/*   Updated: 2022/11/30 08:21:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static int	valid_redir_r(t_info *info, t_token *temp)
+int	check_unlink(t_info *info, t_token *temp)
 {
 	if (temp->next == &info->input->tail || temp->next->pipe \
 			|| temp->next->redir_r || temp->next->redir_l \
@@ -22,23 +22,19 @@ static int	valid_redir_r(t_info *info, t_token *temp)
 		return (1);
 }
 
-int	redir_r(t_info *info, t_token *target)
+void	unlink_all(t_info *info)
 {
-	int		fd;
+	t_token	*temp;
 
-	if (valid_redir_r(info, target))
+	temp = info->input->head.next;
+	while (temp != &info->input->tail)
 	{
-		 fd = open(target->next->token,\
-				 O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		 if (fd < 0)
-		 {
-			 //error
-			 return (0);
-		 }
-		 ft_dup2(fd, STDOUT_FILENO);
-		 target = target->next->next;
+		if (temp->heredoc)
+		{
+			if (check_unlink(info, temp))
+				unlink(temp->next->token);
+		}
+		temp = temp->next;
 	}
-	else
-		return (0);
-	return (1);
+
 }

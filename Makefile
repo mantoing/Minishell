@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/27 07:54:08 by suhkim           ###   ########.fr        #
+#    Updated: 2022/11/30 08:20:29 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,12 @@ SRC = main.c \
 	  check_redirection.c \
 	  redir_r.c \
 	  redir_l.c \
-	  append.c \
+	  redir_append.c \
 	  arg_utils.c \
 	  arg_utils2.c \
-	  del_token.c 
+	  del_token.c \
+	  heredoc.c	\
+	  unlink.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f
@@ -43,9 +45,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ./libft
-	@$(CC) $(CFLAGS) -o $@ $^ -L./libft -lft -lreadline \
-		#-L/Users/jaeywon/.brew/Cellar/readline/8.2.1/lib \
-		-I/Users/jaeywon/.brew/Cellar/readline/8.2.1/include 
+	@$(CC) $(CFLAGS) -o $@ $^ -L./libft -lft -lreadline 
 
 .c.o: $(SRC)
 	@$(CC) $(CFLAGS) -c $^ 
