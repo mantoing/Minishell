@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:35:00 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/27 07:59:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/11/30 07:23:58 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**check_redirection(t_info *info, t_token *pipe)
 	i = 0;
 	while (target != &info->input->tail && target != pipe)
 	{
-		if (target->redir_l)
+		if (target->redir_l || target->heredoc)
 		{
 			if (!redir_l(info, target))
 			{
@@ -54,7 +54,7 @@ char	**check_redirection(t_info *info, t_token *pipe)
 		}
 		else if (target->append)
 		{
-			if (!append(info, target))
+			if (!redir_append(info, target))
 			{
 				free_arg(arg, arg_size);
 				return (0);
@@ -64,6 +64,16 @@ char	**check_redirection(t_info *info, t_token *pipe)
 			i++;
 			arg[i][0] = 0;
 		}
+		/*
+		else if (target->heredoc)
+		{
+			if (!redir_heredoc(info, target))
+			{
+				free_arg(arg, arg_size);
+				return (0);
+			}
+		}
+		*/
 		else
 			target = target->next;
 		i++;
