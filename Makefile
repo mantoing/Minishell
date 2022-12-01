@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/30 08:20:29 by suhkim           ###   ########.fr        #
+#    Updated: 2022/12/01 18:29:24 by jaeywon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,14 @@ SRC = main.c \
 	  arg_utils2.c \
 	  del_token.c \
 	  heredoc.c	\
-	  unlink.c
+	  unlink.c \
+	  path.c \
+	  change_list_to_arr_env.c \
+	  ft_env.c \
+	  ft_export_solo.c \
+	  ft_export.c \
+	  ft_pwd.c \
+	  ft_strcmp.c \
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/30 08:17:50 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/12/01 18:36:18 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,18 @@ char	**check_redirection(t_info *info, t_token *pipe);
 
 int		heredoc(t_info *info);
 void	unlink_all(t_info *info);
+
+int	check_exist_file(char *file);
+char	*check_absol_path(char **arg, t_info *info);
+
+int	ft_strcmp(char *s1, char *s2);
+
+int	ft_pwd(void);
+
+int	ft_export(char **arg, t_info *info);
+
+int	ft_export_solo(t_info *info);
+
+int	ft_env(t_info *env);
 
 #endif
