@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 07:33:18 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/12/24 20:46:57 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ int	init_input(t_input *input)
 	return (1);
 }
 
+int	init_unlink(t_unlink *unlink)
+{
+	unlink->head.next = &unlink->tail;
+	unlink->tail.prev = &unlink->head;
+	unlink->temp_file_cnt = 0;
+	return (1);
+}
+
 int	init_info(t_info *info)
 {
 	info->env_stack = malloc(sizeof(t_stack));
@@ -36,8 +44,25 @@ int	init_info(t_info *info)
 	info->input = malloc(sizeof(t_input));
 	if (!info->input)
 		return (0);
+	info->unlink = malloc(sizeof(t_unlink));
 	init_stack(info->env_stack);
 	init_input(info->input);
+	init_unlink(info->unlink);
 	info->pipe_cnt = 0;
 	return (1);
+}
+
+void	init_terminal(int argc, char **argv)
+{
+	struct termios	term;
+
+	(void) argv;
+	if (argc != 1)
+	{
+		//error
+		exit(1);
+	}
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

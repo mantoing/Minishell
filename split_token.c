@@ -6,13 +6,13 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 07:51:42 by suhkim           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:55:29 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static	int	isspace(char c)
+static	int	parse_isspace(char c)
 {
 	if (c == '\t' || c == '\f' || c == '\n'
 		|| c == '\r' || c == '\v' || c == ' ')
@@ -66,7 +66,7 @@ int	split_token(t_info *info, char *target)
 	i = 0;
 	str = ft_strdup("");
 
-	while (*(target + i) && !(quote == 0 && isspace(*(target + i))))
+	while (*(target + i) && !(quote == 0 && parse_isspace(*(target + i))))
 	{
 		if (*(target + i) == '\'')
 		{
@@ -86,7 +86,7 @@ int	split_token(t_info *info, char *target)
 			else
 				quote = 0;
 		}
-		else if (isspace(*(target + i)) && quote == 0)
+		else if (parse_isspace(*(target + i)) && quote == 0)
 				i++;
 		else if (*(target + i) == '|' && quote == 0)
 		{

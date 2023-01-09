@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 08:56:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/01 18:30:28 by jaeywon          ###   ########.fr       */
+/*   Created: 2022/12/22 20:44:19 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/12/22 20:49:36 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+char	*find_home(t_info *info)
 {
-	int	i;
+	t_node	*tmp;
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
+	tmp = info->env_stack->head.next;
+	while (tmp != &info->env_stack->tail)
 	{
-		if (s1[i] > s2[i])
-			return (1);
-		else if (s1[i] < s2[i])
-			return (-1);
-		else
-			i++;
+		if (!ft_strncmp("HOME", tmp->env_name, ft_strlen(tmp->env_name)))
+			return (ft_strdup(tmp->env_value));
+		tmp = tmp->next;
 	}
-	return (0);
+	return (NULL);
 }

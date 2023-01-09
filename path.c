@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/01 18:35:21 by jaeywon          ###   ########.fr       */
+/*   Updated: 2022/12/02 07:43:09 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	free_temp(char **temp)
 	size_t	i;
 
 	i = 0;
+	if (!temp)
+		return ;
+	if (!*temp)
+	{
+		free(temp);
+		return ;
+	}
 	while (temp[i])
 		free(temp[i++]);
 	free (temp);
@@ -62,6 +69,20 @@ static char	*handle_cmd_absol_path(char *path, char **arg)
 	return (res);
 }
 
+static char	*find_env_name(t_info *info)
+{
+	t_node	*tmp;
+
+	tmp = info->env_stack->head.next;
+	while (tmp != &info->env_stack->tail)
+	{
+		if (!ft_strncmp("PATH", tmp->env_name, ft_strlen(tmp->env_name)))
+			return (ft_strdup(tmp->env_value));
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 char	*check_absol_path(char **arg, t_info *info)
 {
 	char	*res;
@@ -86,16 +107,3 @@ char	*check_absol_path(char **arg, t_info *info)
 	return (res);
 }
 
-static char	*find_env_name(t_info *info)
-{
-	t_node	*tmp;
-
-	tmp = info->env_stack->head.next;
-	while (tmp != &info->env_stack->tail)
-	{
-		if (!ft_strncmp("PATH", tmp->env_name, ft_strlen(tmp->env_name)))
-			return (ft_strdup(tmp->env_value));
-		tmp = tmp->next;
-	}
-	return (NULL);
-}

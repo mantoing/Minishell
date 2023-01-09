@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 07:35:13 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/01 18:32:26 by jaeywon          ###   ########.fr       */
+/*   Updated: 2022/12/25 22:28:13 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static char	**put_env_name_to_arr(t_info *info)
 	i = 0;
 	list_size = cnt_list_size(info);
 	tmp = info->env_stack->head.next;
-	name_arr = (char **)malloc(list_size * (sizeof(char *) + 1));
+	name_arr = (char **)malloc((sizeof(char *) * (list_size + 1)));
 	while (i < list_size)
 	{
-		name_arr[i] = tmp->env_name;
+		name_arr[i] = ft_strdup(tmp->env_name);
 		tmp = tmp->next;
 		i++;
 	}
@@ -78,7 +78,11 @@ static char	*find_name_and_value(char *str, t_info *info)
 	while (tmp != &info->env_stack->tail)
 	{
 		if (!ft_strncmp(str, tmp->env_name, ft_strlen(tmp->env_name)))
-			return (ft_strdup(tmp->env_value));
+		{
+			if (tmp->env_value)
+				return (ft_strdup(tmp->env_value));
+			return (NULL);
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -99,6 +103,12 @@ int	ft_export_solo(t_info *info)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(sorted_name_arr[i], 1);
+		if (!find_name_and_value(sorted_name_arr[i], info))
+		{
+			ft_putstr_fd("\n", 1);
+			i++;
+			continue ;
+		}
 		ft_putstr_fd("=\"", 1);
 		ft_putstr_fd(find_name_and_value(sorted_name_arr[i], info), 1);
 		ft_putstr_fd("\"\n", 1);

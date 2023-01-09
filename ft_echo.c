@@ -1,42 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 06:21:41 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/19 21:35:35 by suhkim           ###   ########.fr       */
+/*   Created: 2022/12/02 05:32:27 by jaeywon           #+#    #+#             */
+/*   Updated: 2022/12/19 21:17:01 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static int	check_equal(char *str)
+static int	option_n_echo(char *arg)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-		if (str[i++] == '=')
+	i = 1;
+	if (arg == NULL)
+		return (1);
+	if (ft_strncmp(arg, "-n", 2) != 0)
+		return (1);
+	++i;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
-int	ft_env(t_info *info)
+int	ft_echo(char **arg)
 {
-	int		i;
-	char	**env_arr;
+	int	i;
+	int flag;
 
-	i = 0;
-	env_arr = change_list_to_arr_env(info);
-	printf("env_arr[0] = %s\n", env_arr[0]);
-	while (env_arr[i] != NULL)
+	i = 1;
+	if (arg[1] == NULL)
 	{
-		if (check_equal(env_arr[i]))
-			printf("%s\n", env_arr[i]);
+		printf("\n");
+		return (0);
+	}
+	while (!option_n_echo(arg[i]))
+	{
+		flag = 1;
 		i++;
 	}
-	free(env_arr);
-	return (1);
+	while (arg[i] != NULL)
+	{
+		printf("%s", arg[i]);
+		if (arg[i + 1] != NULL)
+			printf(" ");
+		i++;
+	}
+	if (flag != 1)
+		printf("\n");
+	return (0);
 }
