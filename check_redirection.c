@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:35:00 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/11 19:02:27 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:12:33 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,10 @@ char	**check_redirection(t_info *info, t_token *pipe)
 			i++;
 			arg[i][0] = 0;
 		}
-		/*
-		else if (target->heredoc)
-		{
-			if (!redir_heredoc(info, target))
-			{
-				free_arg(arg, arg_size);
-				return (0);
-			}
-		}
-		*/
 		else
 			target = target->next;
 		i++;
 	}
 	arg = arrange_arg(arg, arg_size);
-	//dprintf(2, "ret arg = %s\n", arg[0]);
 	return (arg);
 }

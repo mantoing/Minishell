@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 01:52:55 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:12:10 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ int	ft_pipe(t_info *info)
 	i = 0;
 	pipe_idx = 0;
 	init_pipe(read_fd, write_fd);
-//	temp = info->input->head.next;
-//	for (int j = 0 ; j < info->input->token_size; j++)
-//	{
-//		dprintf(2, "%s\n", temp->token);
-//		temp = temp->next;
-//	}
 	if (!info->input->token_size)
 		return (1);
 	temp = info->input->head.next;

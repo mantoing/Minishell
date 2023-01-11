@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2022/12/25 22:02:33 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:12:05 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,13 +178,7 @@ int	heredoc(t_info *info)
 {
 	pid_t	pid;
 
-//	t_unlink_name	*temp;
-
-	//set_signal("DEFAULT");
 	save_temp_num(info);
-//	temp = info->unlink->head.next;
-//	for(;temp == &info->unlink->head; temp = temp->next)
-//		dprintf(2, "%s\n", temp->temp_file_name);
 	pid = check_heredoc(info);
 	wait_heredoc(pid);
 	change_arg_temp_file(info);

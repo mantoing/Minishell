@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redir_l.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 04:51:16 by suhkim            #+#    #+#             */
-/*   Updated: 2022/12/25 17:58:29 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:03:40 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+#include <errno.h>
 
 static int	valid_redir_l(t_info *info, t_token *temp)
 {
@@ -31,8 +32,7 @@ int	redir_l(t_info *info, t_token *target)
 		fd = open(target->next->token, O_RDONLY);
 		if (fd < 0)
 		{
-		    //error
-		    dprintf(2, "not file\n");
+			 print_err("minishell", target->next->token, strerror(errno));
 		    return (0);
 		}
 		ft_dup2(fd, STDIN_FILENO);

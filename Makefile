@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2023/01/12 01:48:05 by suhkim           ###   ########.fr        #
+#    Updated: 2023/01/12 03:46:53 by jaeywon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC = main.c \
 	  ft_cd.c \
 	  cd_utils.c \
 	  signal.c \
-	  terminal.c
+	  terminal.c \
+	  error.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 01:39:07 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:11:47 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,4 @@ void	parse(t_info *info, char *line)
 		else
 			line += len;
 	}
-//	t_token *temp;
-//	temp = info->input->head.next;
-//	while (temp != &info->input->tail)
-//	{
-//		dprintf(2,"%s ", temp->token);
-//		dprintf(2, "heredoc : %d ", temp->heredoc);
-//		dprintf(2, "redir_l : %d ", temp->redir_l);
-//		dprintf(2, "redir_r : %d ", temp->redir_r);
-//		dprintf(2, "append  : %d\n", temp->append);
-//		temp = temp->next;
-//	}
-	//토큰 보기
 }

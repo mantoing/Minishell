@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/09 22:20:03 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:17:32 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int run_chdir(char **arg, char *home)
 	{
 		if (chdir(home) < 0)
 		{
-			printf("cd error home\n");
+			print_err_with_exit("cd", "HOME path does not exist", 1, 0);
 			return (1);
 		}
 	}
@@ -43,7 +43,7 @@ static int run_chdir(char **arg, char *home)
 	{
 		if (chdir(arg[1]) < 0)
 		{
-			printf("cd error\n");
+			print_err_with_exit_num("cd", arg[1], strerror(errno), 1);
 			return (1);
 		}
 	}

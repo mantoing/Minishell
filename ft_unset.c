@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:53:41 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/11 23:48:52 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:09:27 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void ft_unset(char **arg, t_info *info)
 		i = 1;
 		if (!check_valid_unset(arg))
 		{
-			printf("unset_error\n");
+			print_err_with_exit_num("unset", arg[i], "not a valid identifier", 1);
 			return ;
 		}
 		while (arg[i] != NULL)

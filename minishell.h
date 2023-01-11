@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 01:47:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:03:15 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <stdio.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
@@ -147,5 +148,8 @@ void	set_signal(char *type);
 
 void	set_terminal_echo(void);
 void	set_terminal_not_echo(void);
+
+void	print_err_with_exit_num(char *s1, char *s2, char *s3, char code);
+void	print_err(char *s1, char *s2, char *s3);
 
 #endif

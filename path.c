@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/02 07:43:09 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 04:52:04 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*handle_cmd_absol_path(char *path, char **arg)
 		++i;
 	}
 	if (!temp[i])
-		printf("cmd not found\n");
+		exit_with_err(arg[0], "command not found", 127, 1);
 	free(sla);
 	if (temp[i] == NULL)
 		res = NULL;
