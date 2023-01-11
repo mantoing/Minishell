@@ -6,7 +6,7 @@
 #    By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/27 14:00:57 by suhkim            #+#    #+#              #
-#    Updated: 2022/12/19 21:11:26 by suhkim           ###   ########.fr        #
+#    Updated: 2023/01/12 05:13:30 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRCS = ft_atoi.c \
 	   ft_substr.c \
 	   ft_tolower.c \
 	   ft_toupper.c \
-	   ft_strcmp.c
+	   ft_strcmp.c \
+	   ft_strtol.c
 SRCS_BONUS = ft_lstadd_back.c \
 			 ft_lstadd_front.c \
 			 ft_lstclear.c \

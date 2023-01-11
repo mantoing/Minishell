@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:36:54 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 04:15:47 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/12 05:49:17 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	exit_with_err(char *s1, char *s2, int e_code, int to_exit)
 		ft_putstr_fd(s2, STDERR_FILENO);
 	}
 	ft_putstr_fd("\n", STDERR_FILENO);
+	(void)e_code;
+	(void)to_exit;
 	// g_errno = e_code;
 	// if (to_exit)
 	// 	exit(g_errno);

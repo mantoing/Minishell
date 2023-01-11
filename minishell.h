@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 04:03:15 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/12 05:47:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ void	set_terminal_not_echo(void);
 
 void	print_err_with_exit_num(char *s1, char *s2, char *s3, char code);
 void	print_err(char *s1, char *s2, char *s3);
+void	exit_with_err(char *s1, char *s2, int e_code, int to_exit);
 
 #endif
