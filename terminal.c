@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/19 21:50:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 16:47:17 by suhkim           ###   ########.fr       */
+/*   Created: 2023/01/12 01:44:47 by suhkim            #+#    #+#             */
+/*   Updated: 2023/01/12 01:50:54 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "./minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	set_terminal_not_echo(void)
 {
-	char	*str;
-	size_t	s1_len;
-	size_t	s2_len;
+	struct termios	term;
 
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
-		return (0);
-	ft_strlcpy(str, (char *)s1, s1_len + 1);
-	ft_strlcat(str, s2, s1_len + s2_len + 1);
-	return (str);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
+void	set_terminal_echo(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

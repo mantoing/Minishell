@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/19 21:50:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 16:47:17 by suhkim           ###   ########.fr       */
+/*   Created: 2023/01/09 18:42:13 by suhkim            #+#    #+#             */
+/*   Updated: 2023/01/09 18:51:44 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "./minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	ft_exit(char **arg, int pipe)
 {
-	char	*str;
-	size_t	s1_len;
-	size_t	s2_len;
+	int	errno;
 
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
-		return (0);
-	ft_strlcpy(str, (char *)s1, s1_len + 1);
-	ft_strlcat(str, s2, s1_len + s2_len + 1);
-	return (str);
+	errno = 0;
+	if (arg[1])
+		errno = ft_atoi(arg[1]);
+	if (!pipe)
+		printf("exit\n");
+	exit(1);
 }

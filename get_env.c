@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 02:33:16 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 00:49:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	check_name(char *target)
 	i = 0;
 	while (*(target + i))
 	{
-		if (!(ft_isdigit(*(target + i)) || ft_isalpha(*(target + i))))
+		if (!(ft_isdigit(*(target + i)) || ft_isalpha(*(target + i)) \
+					|| *(target + i) == '_'))
 			return (i);
 		i++;
 	}
@@ -45,7 +46,7 @@ char	*get_env(t_info *info, char *target, int *i)
 	temp = info->env_stack->head.next;
 	while (temp != &info->env_stack->tail)
 	{
-		if (!ft_strncmp(name, temp->env_name, ft_strlen(temp->env_name)))
+		if (!ft_strcmp(name, temp->env_name))
 			return (ft_strdup(temp->env_value));
 		temp = temp->next;
 	}

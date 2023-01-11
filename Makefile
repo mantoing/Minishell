@@ -6,18 +6,22 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2022/11/30 08:20:29 by suhkim           ###   ########.fr        #
+#    Updated: 2023/01/12 01:48:05 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
+COMFILE_FLAGS = -I${HOME}/.brew/opt/readline/include
 SRC = main.c \
 	  push_back_token.c \
 	  push_front_token.c \
 	  push_back_env.c \
 	  push_front_env.c \
+	  push_back_unlink.c \
+	  push_front_unlink.c \
 	  init.c \
 	  save_env.c \
 	  parse.c \
@@ -36,7 +40,24 @@ SRC = main.c \
 	  arg_utils2.c \
 	  del_token.c \
 	  heredoc.c	\
-	  unlink.c
+	  unlink.c \
+	  ft_env.c \
+	  ft_echo.c \
+	  ft_export.c \
+	  ft_unset.c \
+	  ft_pwd.c \
+	  ft_exit.c \
+	  path.c \
+	  add_change_export.c \
+	  change_list_to_arr_env.c \
+	  check_builtin.c \
+	  exe_builtin.c \
+	  exe_single_cmd.c \
+	  ft_export_solo.c \
+	  ft_cd.c \
+	  cd_utils.c \
+	  signal.c \
+	  terminal.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f
@@ -45,10 +66,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ./libft
-	@$(CC) $(CFLAGS) -o $@ $^ -L./libft -lft -lreadline 
+	@$(CC) $(CFLAGS) -L./libft -lft $(LINKING_FLAGS) -o $@ $^ 
 
 .c.o: $(SRC)
-	@$(CC) $(CFLAGS) -c $^ 
+	@$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $^ 
 	
 clean:
 	@make -C ./libft clean

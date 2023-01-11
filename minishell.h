@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/11/30 08:17:50 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 01:47:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <termios.h>
 # include "./libft/libft.h"
 
 typedef struct s_node
@@ -29,6 +30,13 @@ typedef struct s_node
 	char			*env_name;
 	char			*env_value;
 }	t_node;
+
+typedef struct s_unlink_name
+{
+	struct s_unlink_name	*next;
+	struct s_unlink_name	*prev;
+	char					*temp_file_name;
+}	t_unlink_name;
 
 typedef struct s_stack
 {
@@ -56,11 +64,19 @@ typedef struct s_input
 	int		token_size;
 }	t_input;
 
+typedef struct s_unlink
+{
+	t_unlink_name	head;
+	t_unlink_name	tail;
+	int				temp_file_cnt;
+}	t_unlink;
+
 typedef struct s_info
 {
-	t_stack	*env_stack;
-	t_input	*input;
-	int		pipe_cnt;
+	t_stack			*env_stack;
+	t_input			*input;
+	t_unlink		*unlink;
+	int				pipe_cnt;
 }	t_info;
 
 
@@ -68,14 +84,18 @@ int		push_back_env(t_stack *stack, char *name, char *value);
 int		push_front_env(t_stack *stack, char *name, char *value);
 int		push_back_token(t_input *input, char *str);
 int		push_front_token(t_input *input, char *str);
+int		push_back_unlink(t_unlink *unlink, char *str);
+int		push_front_unlink(t_unlink *unlink, char *str);
 
 int		init_info(t_info *info);
+void	init_terminal(int argc, char **argv);
 int		save_env(char **env, t_stack *env_stack);
 char	*get_env(t_info *info, char *name, int *i);
 
 void	parse(t_info *info, char *line);
 int		ft_pipe(t_info *info);
-void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd);
+void	ft_token_parse(t_info *info, t_token *pipe, \
+		int *read_fd, int *write_fd);
 int		split_token(t_info *info, char *target);
 void	del_token(t_input *input, t_token *target, int *arg_size);
 void	free_token(t_input *input);
@@ -98,5 +118,34 @@ char	**check_redirection(t_info *info, t_token *pipe);
 
 int		heredoc(t_info *info);
 void	unlink_all(t_info *info);
+
+void	exe_single_cmd(t_info *info, t_token *temp);
+void	exe_builtin(t_info *info, char **arg, int pipe);
+int		check_builtin(char *cmd);
+
+char	*check_absol_path(char **arg, t_info *info);
+
+void 	ft_unset(char **arg, t_info *info);
+int		ft_pwd(void);
+int		ft_export_solo(t_info *info);
+int		ft_export_with_arg(t_info *info, char **arg);
+int		ft_export(char **arg, t_info *info);
+int		ft_env(t_info *info);
+int		ft_echo(char **arg);
+int		ft_cd(char **arg, t_info *info);
+void	ft_exit(char **arg, int pipe);
+
+char	**change_list_to_arr_env(t_info *info);
+
+int		cnt_list_size(t_info *info);
+void	free_temp(char **temp);
+
+char	*find_home(t_info *info);
+
+void	sigint_handler(int sig);
+void	set_signal(char *type);
+
+void	set_terminal_echo(void);
+void	set_terminal_not_echo(void);
 
 #endif

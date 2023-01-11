@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/30 08:53:36 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/12 02:12:20 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 //		arg_size++;
 //		temp = temp->next;
 //	}
+	set_signal("DEFAULT");
 	ft_close(read_fd[1]);
 	ft_close(write_fd[0]);
 	ft_dup2(read_fd[0], STDIN_FILENO);
@@ -42,38 +43,11 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	//exe_cmd(info, arg, read_fd, write_fd);
 	if (!is_empty_arg(arg))
 	{
-			//return free_arg(arg, 0);
-		if (!ft_strncmp("echo", *(arg), ft_strlen(*(arg))))
-		{
-	//		ft_close(read_fd[1]);
-	//		ft_close(write_fd[0]);
-	//		ft_dup2(read_fd[0], STDIN_FILENO);
-	//		ft_dup2(write_fd[1], STDOUT_FILENO);
-			//dprintf(2,"echo %d %d\n", read_fd[0], write_fd[1]);
-			execve("/bin/echo", arg, NULL);
-		}
-		else if (!ft_strncmp("ls", *(arg), ft_strlen(*(arg))))
-		{
-	//		ft_close(read_fd[1]);
-	//		ft_close(write_fd[0]);
-	//		ft_dup2(read_fd[0], STDIN_FILENO);
-	//		ft_dup2(write_fd[1], STDOUT_FILENO);
-			//dprintf(2,"ls %d %d\n", read_fd[0], write_fd[1]);
-			execve("/bin/ls", arg, NULL);
-		}
-		else if (!ft_strncmp("cat", *(arg), ft_strlen(*(arg))))
-		{
-	//		ft_close(read_fd[1]);
-	//		ft_close(write_fd[0]);
-	//		ft_dup2(read_fd[0], STDIN_FILENO);
-	//		ft_dup2(write_fd[1], STDOUT_FILENO);
-			//dprintf(2,"cat %d %d\n", read_fd[0], write_fd[1]);
-			execve("/bin/cat", arg, NULL);
-		}
-		else if (!ft_strncmp("./a.out", *(arg), ft_strlen(*(arg))))
-		{
-			execve("./a.out", arg, NULL);
-		}
+		if (check_builtin(*(arg)))
+			exe_builtin(info ,arg, 1);
+		else
+			execve(check_absol_path(arg, info), arg, \
+					change_list_to_arr_env(info));
 	}
 	if (arg)
 		free_arg(arg, cnt_arg_arr_size(arg));

@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   check_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/19 21:50:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 16:47:17 by suhkim           ###   ########.fr       */
+/*   Created: 2022/12/19 21:06:16 by suhkim            #+#    #+#             */
+/*   Updated: 2022/12/20 21:06:27 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "./minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+int	check_builtin(char *cmd)
 {
-	char	*str;
-	size_t	s1_len;
-	size_t	s2_len;
-
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
-		return (0);
-	ft_strlcpy(str, (char *)s1, s1_len + 1);
-	ft_strlcat(str, s2, s1_len + s2_len + 1);
-	return (str);
+	if (!ft_strcmp(cmd, "echo"))
+		return (1);
+	else if (!ft_strcmp(cmd, "env"))
+		return (1);
+	else if (!ft_strcmp(cmd, "export"))
+		return (1);
+	else if (!ft_strcmp(cmd, "unset"))
+		return (1);
+	else if (!ft_strcmp(cmd, "cd"))
+		return (1);
+	else if (!ft_strcmp(cmd, "pwd"))
+		return (1);
+	else if (!ft_strcmp(cmd, "exit"))
+		return (1);
+	return (0);
 }
