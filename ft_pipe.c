@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 04:12:10 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/15 20:52:30 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_pipe(t_info *info)
 
 	i = 0;
 	pipe_idx = 0;
+	pid = 0;
 	init_pipe(read_fd, write_fd);
 	if (!info->input->token_size)
 		return (1);
@@ -58,7 +59,7 @@ int	ft_pipe(t_info *info)
 		{
 			set_terminal_echo();
 			if (temp == &info->input->tail && pipe_idx == 0)
-				exe_single_cmd(info, temp);
+				pid = exe_single_cmd(info, temp);
 			else
 			{
 				set_pipe(info, read_fd, write_fd, pipe_idx);
@@ -77,8 +78,12 @@ int	ft_pipe(t_info *info)
 		i++;
 	}
 	waitpid(pid, &status, 0);
-	while (wait(&status) != -1)
+	while (waitpid(-1, 0, 0) != -1)
 		;
+	if (WIFEXITED(status))
+		info->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		info->exit_code = WTERMSIG(status) + 128;
 	set_signal("SHELL");
 	set_terminal_not_echo();
 	return (1);

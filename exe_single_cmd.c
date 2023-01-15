@@ -6,19 +6,20 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 18:52:59 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 20:55:08 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-void	exe_single_cmd(t_info *info, t_token *temp)
+int	exe_single_cmd(t_info *info, t_token *temp)
 {
 	char	**arg;
 	pid_t	pid;
 	int		temp_fd_out;
 	int		temp_fd_in;
 
+	pid = 0;
 	temp_fd_out = dup(STDOUT_FILENO);
 	temp_fd_in = dup(STDIN_FILENO);
 	arg = check_redirection(info, temp);
@@ -45,4 +46,5 @@ void	exe_single_cmd(t_info *info, t_token *temp)
 		free_arg(arg, cnt_arg_arr_size(arg));
 	dup2(temp_fd_out, STDOUT_FILENO);
 	dup2(temp_fd_in, STDIN_FILENO);
+	return (pid);
 }

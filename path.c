@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 04:52:04 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/15 21:29:46 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*check_absol_path(char **arg, t_info *info)
 	{
 		if (!check_exist_file(arg[0]))
 		{
-			printf("search not file\n");
+			dprintf(2," search not file\n");
 			return (0);
 		}
 		else
@@ -102,6 +102,8 @@ char	*check_absol_path(char **arg, t_info *info)
 	}
 	if (path != NULL)
 		res = handle_cmd_absol_path(path, arg);
+	else
+		exit_with_err(arg[0], "No such file or directory", 1, 1);
 	if (res == NULL && check_exist_file(arg[0]))
 		return (ft_strdup(arg[0]));
 	return (res);

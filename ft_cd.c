@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 05:48:27 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 22:16:43 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,29 @@ static void	get_both_pwd(char **env, char **pwd_value, char **oldpwd_value)
 	}
 }
 
-static int run_chdir(char **arg, char *home)
+static int run_chdir(t_info *info, char **arg)
 {
-	if (arg[1] == NULL || !ft_strcmp(arg[1], "~"))
+	char	*temp;
+
+	if (arg[1] == NULL)
 	{
-		if (chdir(home) < 0)
+		if (chdir(info->home_dir) < 0)
 		{
 			exit_with_err("cd", "HOME path does not exist", 1, 0);
 			return (1);
 		}
+		return (0);
 	}
-	else
+	else if (arg[1][0] == '~')
 	{
-		if (chdir(arg[1]) < 0)
-		{
-			print_err_with_exit_num("cd", arg[1], strerror(errno), 1);
-			return (1);
-		}
+		temp = arg[1];
+		arg[1] = ft_strjoin(info->home_dir, arg[1] + 1);
+		free(temp);
+	}
+	if (chdir(arg[1]) < 0)
+	{
+		print_err_with_exit_num("cd", arg[1], strerror(errno), 1);
+		return (1);
 	}
 	return (0);
 }
@@ -62,7 +68,8 @@ static void	change_oldpwd(char *cur, char *old_pwdvalue, t_info *info)
 	arg[0] = ft_strdup("export");
 	arg[1] = tmp;
 	arg[2] = NULL;
-	ft_export(arg, info);
+	if (cur)
+		ft_export(arg, info);
 	free(arg[0]);
 	free(arg[1]);
 	free(arg);
@@ -82,7 +89,8 @@ static void change_pwd(char *pwd_value, t_info *info)
 	arg[0] = ft_strdup("export");
 	arg[1] = tmp;
 	arg[2] = NULL;
-	ft_export(arg, info);
+	if (cwd)
+		ft_export(arg, info);
 	free(arg[0]);
 	free(arg[1]);
 	free(arg);
@@ -98,7 +106,7 @@ int	ft_cd(char **arg, t_info *info)
 	env = change_list_to_arr_env(info);
 	cur = getcwd(NULL, 0);
 	get_both_pwd(env, &pwd_value, &old_pwd_value);
-	if (run_chdir(arg, find_home(info)))
+	if (run_chdir(info, arg))
 	{
 		free(cur);
 		return (1);

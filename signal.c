@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:24:40 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 02:11:46 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 19:25:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,22 @@ static void	sigint_handler_shell(int sig)
 	(void) sig;
 }
 
+static void	sigint_handler_waitheredoc(int sig)
+{
+	g_errno = 1;
+	(void) sig;
+}
+
 void	set_signal(char *type)
 {
 	if (!ft_strcmp(type, "SHELL"))
 	{
 		signal(SIGINT, sigint_handler_shell);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (!ft_strcmp(type, "HEREDOCWAIT"))
+	{
+		signal(SIGINT, sigint_handler_waitheredoc);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (!ft_strcmp(type, "HEREDOC"))

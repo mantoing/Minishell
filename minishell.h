@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 05:47:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:31:49 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ typedef struct s_info
 	t_stack			*env_stack;
 	t_input			*input;
 	t_unlink		*unlink;
+	char			*home_dir;
+	int				exit_code;
 	int				pipe_cnt;
 }	t_info;
 
+extern int	g_errno;
 
 int		push_back_env(t_stack *stack, char *name, char *value);
 int		push_front_env(t_stack *stack, char *name, char *value);
@@ -90,7 +93,7 @@ int		push_front_unlink(t_unlink *unlink, char *str);
 
 int		init_info(t_info *info);
 void	init_terminal(int argc, char **argv);
-int		save_env(char **env, t_stack *env_stack);
+int		save_env(char **env, t_info *info);
 char	*get_env(t_info *info, char *name, int *i);
 
 void	parse(t_info *info, char *line);
@@ -120,7 +123,7 @@ char	**check_redirection(t_info *info, t_token *pipe);
 int		heredoc(t_info *info);
 void	unlink_all(t_info *info);
 
-void	exe_single_cmd(t_info *info, t_token *temp);
+int		exe_single_cmd(t_info *info, t_token *temp);
 void	exe_builtin(t_info *info, char **arg, int pipe);
 int		check_builtin(char *cmd);
 

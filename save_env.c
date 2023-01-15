@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:59:29 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 17:31:27 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 22:07:27 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,21 @@ static void	remove_oldpwd(t_stack *env_stack)
 	}
 }
 
-int	save_env(char **env, t_stack *env_stack)
+static void	save_home_dir(t_info *info)
+{
+	t_node	*temp;
+
+	temp = info->env_stack->head.next;
+	while (temp != &info->env_stack->tail)
+	{
+		if (!ft_strcmp(temp->env_name, "HOME"))
+			break ;
+		temp = temp->next;
+	}
+	info->home_dir = ft_strdup(temp->env_value);
+}
+
+int	save_env(char **env, t_info *info)
 {
 	char	*pos;
 	int		i;
@@ -41,11 +55,12 @@ int	save_env(char **env, t_stack *env_stack)
 		len = ft_strlen(*(env + i));
 		pos = ft_strchr(*(env + i), '=');
 		if (pos)
-			push_front_env(env_stack, ft_substr(*(env + i), 0,\
+			push_front_env(info->env_stack, ft_substr(*(env + i), 0,\
 						pos - *(env + i)), ft_substr(*(env + i),\
 						pos + 1 - *(env + i), len));
 		i++;
 	}
-	remove_oldpwd(env_stack);
+	remove_oldpwd(info->env_stack);
+	save_home_dir(info);
 	return (1);
 }

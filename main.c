@@ -6,11 +6,13 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 02:10:24 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:31:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+
+int g_errno;
 
 int main(int argc, char **argv, char **env)
 {
@@ -25,9 +27,14 @@ int main(int argc, char **argv, char **env)
     init_info(&info);
     init_terminal(argc, argv);
     set_signal("SHELL");
-    save_env(env, info.env_stack);
+    save_env(env, &info);
     while (1)
     {
+        if (g_errno == 1)
+        {
+            info.exit_code = 1;
+            g_errno = 0;
+        }
         line = readline("minishell$ ");
         if (!line)
         {

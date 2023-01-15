@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 04:12:05 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/15 19:27:45 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,19 +169,20 @@ int	wait_heredoc(int pid)
 	if (WIFSIGNALED(status))
 	{
 		printf("\n");
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	heredoc(t_info *info)
 {
 	pid_t	pid;
+	int		ifsignal;
 
 	save_temp_num(info);
 	pid = check_heredoc(info);
-	wait_heredoc(pid);
+	ifsignal = wait_heredoc(pid);
 	change_arg_temp_file(info);
 	set_signal("SHELL");
-	return (1);
+	return (ifsignal);
 }
