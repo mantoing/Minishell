@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:47:27 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_last_exit_code(t_info *info)
 		info->exit_code = 1;
 		g_signal = 0;
 	}
-	return (ft_strdup(ft_itoa(info->exit_code)));
+	return (ft_itoa(info->exit_code));
 }
 
 char	*get_env(t_info *info, char *target, int *i)
@@ -61,6 +61,7 @@ char	*get_env(t_info *info, char *target, int *i)
 		if (!ft_strcmp(name, temp->env_name))
 		{
 			free(str);
+			free(name);
 			return (ft_strdup(temp->env_value));
 		}
 		temp = temp->next;
@@ -68,6 +69,7 @@ char	*get_env(t_info *info, char *target, int *i)
 	if (*name == '?')
 	{
 		free(str);
+		free(name);
 		return (get_last_exit_code(info));
 	}
 	return (str);

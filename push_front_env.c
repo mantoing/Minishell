@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 19:29:48 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/24 16:59:41 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:41:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	push_front_env(t_stack *stack, char *name, char *value)
 		return (0);
 	new_node = malloc(sizeof(t_stack));
 	if (!new_node)
-		return (0);
+		exit(1);
 	new_node->env_name = name;
 	new_node->env_value = value;
 	if (stack->head.next == &stack->tail)

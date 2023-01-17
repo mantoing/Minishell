@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 06:08:33 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 07:29:43 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int g_signal;
 
 int main(int argc, char **argv, char **env)
 {
-    // int ret;
     char    *line;
     t_info  info;
 
@@ -26,8 +25,8 @@ int main(int argc, char **argv, char **env)
 				"No such file or directory", NULL, 127);
 		exit(info.exit_code);
     }
-    if (*(argv + 1))
-        return (0);
+//    if (*(argv + 1))
+//        return (0);
     init_info(&info);
     init_terminal();
     set_signal("SHELL");
@@ -50,6 +49,8 @@ int main(int argc, char **argv, char **env)
             add_history(line);
             if (parse(&info, line))
             {
+                t_token *temp;
+                temp = info.input->head.next;
                 if (heredoc(&info))
                     ft_pipe(&info);
                 unlink_all(&info);

@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 19:29:48 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/24 17:16:10 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:42:20 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	push_front_token(t_input *input, char *str)
 		return (0);
 	new_token = malloc(sizeof(t_input));
 	if (!new_token)
-		return (0);
+		exit(1);
 	new_token->token = str;
 	if (input->head.next == &input->tail)
 		push_front_first(input, new_token);

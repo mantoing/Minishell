@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:18:57 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:33:11 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int	init_info(t_info *info)
 {
 	info->env_stack = malloc(sizeof(t_stack));
 	if (!info->env_stack)
-		return (0);
+		exit(1);
 	info->input = malloc(sizeof(t_input));
 	if (!info->input)
-		return (0);
+		exit(1);
 	info->unlink = malloc(sizeof(t_unlink));
+	if (!info->unlink)
+		exit(1);
 	init_stack(info->env_stack);
 	init_input(info->input);
 	init_unlink(info->unlink);

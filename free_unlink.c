@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:18:50 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 03:12:56 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 07:29:14 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_unlink(t_unlink *unlink)
 		temp->prev->next = &unlink->tail;
 		unlink->tail.prev = temp->prev;
 		unlink->temp_file_cnt -= 1;
+		free(temp->temp_file_name);
 		free(temp);
 	}
 }

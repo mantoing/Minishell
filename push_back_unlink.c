@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 22:17:19 by suhkim            #+#    #+#             */
-/*   Updated: 2022/12/24 21:21:56 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:51:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	push_back_unlink(t_unlink *unlink, char *str)
 		return (0);
 	new_unlink = malloc(sizeof(t_unlink));
 	if (!new_unlink)
-		return (0);
-	new_unlink->temp_file_name = ft_strdup(str);
+		exit(1);
+	new_unlink->temp_file_name = str;
 	if (unlink->tail.prev == &unlink->head)
 		push_back_first(unlink, new_unlink);
 	else

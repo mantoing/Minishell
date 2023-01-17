@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 07:54:06 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/09 18:45:28 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 07:25:01 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	**change_list_to_arr_env(t_info	*info)
 		line = ft_strdup(tmp->env_name);
 		if (tmp->env_value)
 		{
-			line = ft_strjoin(line, "=");
-			line = ft_strjoin(line, tmp->env_value);
+			line = ft_strjoin(line, ft_strdup("="));
+			line = ft_strjoin(line, ft_strdup(tmp->env_value));
 		}
 		arr[i] = ft_strdup(line);
 		free(line);

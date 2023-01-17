@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 19:29:48 by suhkim            #+#    #+#             */
-/*   Updated: 2022/12/24 21:27:38 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:42:29 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	push_front_unlink(t_unlink *unlink, char *str)
 		return (0);
 	new_unlink = malloc(sizeof(t_unlink));
 	if (!new_unlink)
-		return (0);
+		exit(1);
 	new_unlink->temp_file_name = ft_strdup(str);
 	if (unlink->head.next == &unlink->tail)
 		push_front_first(unlink, new_unlink);

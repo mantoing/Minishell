@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 04:21:47 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 07:23:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ static char	*handle_cmd_absol_path(t_info *info, char *path, char **arg)
 
 	i = 0;
 	temp = ft_split(path, ':');
-	sla = ft_strjoin("/", arg[0]);
+	sla = ft_strjoin(ft_strdup("/"), ft_strdup(arg[0]));
 	res = NULL;
 	while (temp[i])
 	{
-		res = ft_strjoin(temp[i], sla);
+		res = ft_strjoin(ft_strdup(temp[i]), ft_strdup(sla));
 		if (check_exist_file(res))
 			break ;
 		free(res);

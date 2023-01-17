@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:18:50 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/24 18:31:19 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 07:31:29 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_token(t_input *input)
 		temp->prev->next = &input->tail;
 		input->tail.prev = temp->prev;
 		input->token_size -= 1;
+		free(temp->token);
 		free(temp);
 	}
 }

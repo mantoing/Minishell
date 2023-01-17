@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 22:17:19 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/25 07:57:15 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:41:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	push_back_token(t_input *input, char *str)
 		return (0);
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
-		return (0);
+		exit(1);
 	new_token->token = str;
 	if (input->tail.prev == &input->head)
 		push_back_first(input, new_token);

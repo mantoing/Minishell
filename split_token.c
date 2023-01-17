@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 05:41:05 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:47:27 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	split_token(t_info *info, char *target)
 					else
 					{
 						if (quote == 0)
-							str = ft_strjoin(str, "");
+							str = ft_strjoin(str, ft_strdup(""));
 						else
 							str = ft_strjoin(str, ft_substr(target, i, 1));
 					}
