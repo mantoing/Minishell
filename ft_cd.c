@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 00:25:40 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:59:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ static void	change_oldpwd(char *cur, char *old_pwdvalue, t_info *info)
 
 	if (!old_pwdvalue)
 		return ;
-	tmp = ft_strjoin("OLDPWD=", cur);
+	if (cur)
+		tmp = ft_strjoin("OLDPWD=", cur);
+	else
+		tmp = ft_strjoin("OLDPWD=", "(null)");
 	arg = malloc(sizeof(char *) * 3);
 	arg[0] = ft_strdup("export");
 	arg[1] = tmp;
 	arg[2] = NULL;
-	if (cur)
-		ft_export(arg, info);
+	ft_export(arg, info);
 	free(arg[0]);
 	free(arg[1]);
 	free(arg);
@@ -86,13 +88,15 @@ static void change_pwd(char *pwd_value, t_info *info)
 	if (!pwd_value)
 		return ;
 	cwd = getcwd(NULL, 0);
-	tmp = ft_strjoin("PWD=", cwd);
+	if (cwd)
+		tmp = ft_strjoin("PWD=", cwd);
+	else
+		tmp = ft_strjoin("PWD=", "(null)");
 	arg = malloc(sizeof(char *) * 3);
 	arg[0] = ft_strdup("export");
 	arg[1] = tmp;
 	arg[2] = NULL;
-	if (cwd)
-		ft_export(arg, info);
+	ft_export(arg, info);
 	free(arg[0]);
 	free(arg[1]);
 	free(arg);
@@ -116,5 +120,6 @@ int	ft_cd(char **arg, t_info *info)
 	change_pwd(pwd_value, info);
 	change_oldpwd(cur, old_pwd_value, info);
 	free(cur);
+	g_errno = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 00:42:55 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:59:40 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	}
 	if (arg)
 		free_arg(arg, cnt_arg_arr_size(arg));
+	g_errno = 0;
 	exit(info->exit_code);
 }

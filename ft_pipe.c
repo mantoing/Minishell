@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/15 20:52:30 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:04:11 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,16 @@ int	ft_pipe(t_info *info)
 		temp = temp->next;
 		i++;
 	}
-	waitpid(pid, &status, 0);
-	while (waitpid(-1, 0, 0) != -1)
-		;
-	if (WIFEXITED(status))
-		info->exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		info->exit_code = WTERMSIG(status) + 128;
+	if (pid)
+	{
+		waitpid(pid, &status, 0);
+		while (waitpid(-1, 0, 0) != -1)
+			;
+		if (WIFEXITED(status))
+			info->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			info->exit_code = WTERMSIG(status) + 128;
+	}
 	set_signal("SHELL");
 	set_terminal_not_echo();
 	return (1);

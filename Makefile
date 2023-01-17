@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2023/01/12 03:46:53 by jaeywon          ###   ########.fr        #
+#    Updated: 2023/01/18 03:13:56 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRC = main.c \
 	  cd_utils.c \
 	  signal.c \
 	  terminal.c \
-	  error.c
+	  error.c \
+	  free_unlink.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 00:50:29 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:13:50 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int g_errno;
 int main(int argc, char **argv, char **env)
 {
     // int ret;
-    char *line;
+    char    *line;
     t_info  info;
 
     if (argc != 1)
@@ -46,12 +46,11 @@ int main(int argc, char **argv, char **env)
             parse(&info, line);
             add_history(line);
             if (heredoc(&info))
-            {
                 ft_pipe(&info);
-                unlink_all(&info);
-            }
+            unlink_all(&info);
             free(line);
             free_token(info.input);
+            free_unlink(info.unlink);
             line = NULL;
         }
     }

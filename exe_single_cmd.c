@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 00:41:58 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:00:21 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int	exe_single_cmd(t_info *info, t_token *temp)
 		free_arg(arg, cnt_arg_arr_size(arg));
 	dup2(temp_fd_out, STDOUT_FILENO);
 	dup2(temp_fd_in, STDIN_FILENO);
+	g_errno = 0;
 	return (pid);
 }

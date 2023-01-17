@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 00:43:10 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:26:11 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ static	int	parse_isspace(char c)
 {
 	if (c == '\t' || c == '\f' || c == '\n'
 		|| c == '\r' || c == '\v' || c == ' ')
+		return (1);
+	return (0);
+}
+
+static	int	not_env_arg(char c)
+{
+	if (!ft_isalnum(c) && c != '_' && c != '?')
 		return (1);
 	return (0);
 }
@@ -114,7 +121,7 @@ int	split_token(t_info *info, char *target)
 			{
 				if (*(target + i) != '$')
 					str = ft_strjoin(str, ft_substr(target, i, 1));
-				else if (*(target + i + 1) == 0 || parse_isspace(*(target + i \
+				else if (*(target + i + 1) == 0 || not_env_arg(*(target + i \
 								+ 1)))
 					str = ft_strjoin(str, ft_substr(target, i, 1));
 				else

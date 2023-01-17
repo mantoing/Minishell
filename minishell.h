@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 00:50:14 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:13:46 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_token_parse(t_info *info, t_token *pipe, \
 int		split_token(t_info *info, char *target);
 void	del_token(t_input *input, t_token *target, int *arg_size);
 void	free_token(t_input *input);
+void	free_unlink(t_unlink *unlink);
 
 void	ft_close(int fd);
 void	ft_dup2(int fd1, int fd2);

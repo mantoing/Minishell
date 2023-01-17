@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:31:40 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 00:32:02 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:55:51 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exe_builtin(t_info *info, char **arg, int pipe)
 {
 	if (!ft_strcmp(*(arg), "echo"))
-		ft_echo(arg);
+		info->exit_code = ft_echo(arg);
 	else if (!ft_strcmp(*(arg), "env"))
 		ft_env(info);
 	else if (!ft_strcmp(*(arg), "export"))

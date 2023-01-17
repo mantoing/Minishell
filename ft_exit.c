@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:42:13 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 00:28:43 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:08:08 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	ft_exit(t_info *info, char **arg, int pipe)
 	}
 	if (check_valid_arg_exit(arg[1]) < 0)
 	{
-		print_err("exit", arg[1], "numeric argument required");
-		info->exit_code = (char)ft_strtol(arg[1]);
+		info->exit_code = print_err_with_exit_num("exit", arg[1], \
+				"numeric argument required", 255);
 		exit(info->exit_code);
 	}
 	if (arg[2])

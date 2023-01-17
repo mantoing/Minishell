@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:51:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/17 20:39:10 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:28:47 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	push_non_value_env(t_info *info, char *name)
 	env = info->env_stack->head.next;
 	while (env != &info->env_stack->tail)
 	{
-		if (!ft_strncmp(name, env->env_name, ft_strlen(env->env_name)))
+		if (!ft_strcmp(name, env->env_name))
 			return (0);
 		env = env->next;
 	}
@@ -67,7 +67,7 @@ static int	add_change_export(char *arg, t_info *info)
 	env = info->env_stack->head.next;
 	while (env != &info->env_stack->tail)
 	{
-		if (!ft_strncmp(name, env->env_name, ft_strlen(env->env_name)))
+		if (!ft_strcmp(name, env->env_name))
 		{
 			change_env(value, env);
 			return (0);
@@ -81,19 +81,19 @@ static int	add_change_export(char *arg, t_info *info)
 int	ft_export_with_arg(t_info *info, char **arg)
 {
 	int	i;
-	int	errno;
+	int	exitcode;
 
 	i = 0;
+	exitcode = 0;
 	while (arg[++i])
 	{
 		if (!valid_export_arg(arg[i]))
 		{
-			dprintf(2, "error123\n");
+			exitcode = print_err_with_exit_num("export", arg[i], \
+					"not a valid identifier", 1);
 			continue ;
 		}
-		errno = add_change_export(arg[i], info);
-		if (errno != 0)
-			return (-1);
+		add_change_export(arg[i], info);
 	}
-	return (0);
+	return (exitcode);
 }
