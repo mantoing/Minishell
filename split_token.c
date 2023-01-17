@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 03:26:11 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 04:00:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	int	parse_isspace(char c)
 
 static	int	not_env_arg(char c)
 {
-	if (!ft_isalnum(c) && c != '_' && c != '?')
+	if (!ft_isalnum(c) && c != '_' && c != '?' && c != '\'' && c != '\"')
 		return (1);
 	return (0);
 }

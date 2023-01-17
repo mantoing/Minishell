@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 03:28:26 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:36:58 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int	heredoc(t_info *info)
 	pid_t	pid;
 	int		ifsignal;
 
-	g_errno = 0;
+	g_signal = 0;
 	save_temp_num(info);
 	pid = check_heredoc(info);
 	set_signal("HEREDOCWAIT");

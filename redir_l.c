@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 04:51:16 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 04:03:40 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/18 04:42:56 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,18 @@ int	redir_l(t_info *info, t_token *target)
 
 	if (valid_redir_l(info, target))
 	{
+		if (access(target->next->token, F_OK) != -1 && access(\
+					target->next->token, R_OK) == -1)
+		{
+			info->exit_code = print_err_with_exit_num(target->next->token, \
+					"Permission denied", NULL, 1);
+			return (0);
+		}
 		fd = open(target->next->token, O_RDONLY);
 		if (fd < 0)
 		{
-			 print_err("minishell", target->next->token, strerror(errno));
+			 print_err_with_exit_num( target->next->token,\
+					 strerror(errno), NULL, errno);
 		    return (0);
 		}
 		ft_dup2(fd, STDIN_FILENO);

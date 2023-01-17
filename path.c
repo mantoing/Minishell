@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 00:31:25 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 04:21:47 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ int	check_exist_file(char *file)
 		if (access(file, R_OK) != -1 && access(file, X_OK) != -1)
 			return (1);
 		else
-		{
-			//permission denied
 			return (2);
-		}
 	}
 	return (0);
 }

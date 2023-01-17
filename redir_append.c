@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 07:50:04 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/17 22:25:32 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 04:43:03 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ int	redir_append(t_info *info, t_token *target)
 
 	if (valid_append(info, target))
 	{
+		if (access(target->next->token, F_OK) != -1 && access(\
+					target->next->token, W_OK) == -1)
+		{
+			info->exit_code = print_err_with_exit_num(target->next->token, \
+					"Permission denied", NULL, 1);
+			return (0);
+		}
 		fd = open(target->next->token,\
 		   	 O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
 		{
-		    //error
+			print_err_with_exit_num(target->next->token, strerror(errno),\
+					NULL, errno);
 		    return (0);
 		}
 		ft_dup2(fd, STDOUT_FILENO);
