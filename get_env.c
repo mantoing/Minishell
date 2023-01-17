@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 02:52:21 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:34:53 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	check_name(char *target)
 
 char	*get_last_exit_code(t_info *info)
 {
-	if (g_errno)
+	if (g_signal)
 	{
 		info->exit_code = 1;
-		g_errno = 0;
+		g_signal = 0;
 	}
 	return (ft_strdup(ft_itoa(info->exit_code)));
 }

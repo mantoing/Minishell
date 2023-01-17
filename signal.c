@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:24:40 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 02:48:24 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:34:54 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	sigint_handler_shell(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_errno = 1;
+	g_signal = 1;
 	(void) sig;
 }
 
 static void	sigint_handler_waitheredoc(int sig)
 {
-	g_errno = 1;
+	g_signal = 1;
 	(void) sig;
 }
 

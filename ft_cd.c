@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 02:59:02 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:34:52 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ int	ft_cd(char **arg, t_info *info)
 	change_pwd(pwd_value, info);
 	change_oldpwd(cur, old_pwd_value, info);
 	free(cur);
-	g_errno = 0;
+	g_signal = 0;
 	return (0);
 }

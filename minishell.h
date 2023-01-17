@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:13:46 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 03:34:54 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_info
 	int				pipe_cnt;
 }	t_info;
 
-extern int	g_errno;
+extern int	g_signal;
 
 int		push_back_env(t_stack *stack, char *name, char *value);
 int		push_front_env(t_stack *stack, char *name, char *value);
