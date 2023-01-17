@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/15 21:31:49 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:50:14 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		push_back_unlink(t_unlink *unlink, char *str);
 int		push_front_unlink(t_unlink *unlink, char *str);
 
 int		init_info(t_info *info);
-void	init_terminal(int argc, char **argv);
+void	init_terminal(t_info *info, int argc, char **argv);
 int		save_env(char **env, t_info *info);
 char	*get_env(t_info *info, char *name, int *i);
 
@@ -137,7 +137,7 @@ int		ft_export(char **arg, t_info *info);
 int		ft_env(t_info *info);
 int		ft_echo(char **arg);
 int		ft_cd(char **arg, t_info *info);
-void	ft_exit(char **arg, int pipe);
+void	ft_exit(t_info *info, char **arg, int pipe);
 
 char	**change_list_to_arr_env(t_info *info);
 
@@ -152,8 +152,7 @@ void	set_signal(char *type);
 void	set_terminal_echo(void);
 void	set_terminal_not_echo(void);
 
-void	print_err_with_exit_num(char *s1, char *s2, char *s3, char code);
+int		print_err_with_exit_num(char *s1, char *s2, char *s3, int e_code);
 void	print_err(char *s1, char *s2, char *s3);
-void	exit_with_err(char *s1, char *s2, int e_code, int to_exit);
 
 #endif

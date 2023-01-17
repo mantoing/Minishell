@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/15 19:27:45 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:44:15 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	check_heredoc(t_info *info)
  			}
  			temp = temp->next;
  		}
-		exit(1);
+		exit(0);
 	}
 	return (pid);
 }

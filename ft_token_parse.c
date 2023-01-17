@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 04:11:23 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:42:55 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 		if (check_builtin(*(arg)))
 			exe_builtin(info ,arg, 1);
 		else
+		{
 			execve(check_absol_path(arg, info), arg, \
 					change_list_to_arr_env(info));
+		}
 	}
 	if (arg)
 		free_arg(arg, cnt_arg_arr_size(arg));
-	exit(1);
+	exit(info->exit_code);
 }

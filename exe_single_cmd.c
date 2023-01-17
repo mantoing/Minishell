@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/15 20:55:08 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:41:58 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	exe_single_cmd(t_info *info, t_token *temp)
 				set_signal("DEFAULT");
 				execve(check_absol_path(arg, info), arg, \
 						change_list_to_arr_env(info));
-				if (arg)
-					free_arg(arg, cnt_arg_arr_size(arg));
-				exit(1);
+				exit(info->exit_code);
 			}
 		}
 	}

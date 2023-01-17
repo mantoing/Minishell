@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/15 21:29:46 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:31:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,20 @@ void	free_temp(char **temp)
 
 int	check_exist_file(char *file)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	close(fd);
-	if (fd == -1)
-		return (0);
-	else
-		return (1);
+	if (access(file, F_OK) != -1)
+	{
+		if (access(file, R_OK) != -1 && access(file, X_OK) != -1)
+			return (1);
+		else
+		{
+			//permission denied
+			return (2);
+		}
+	}
+	return (0);
 }
 
-static char	*handle_cmd_absol_path(char *path, char **arg)
+static char	*handle_cmd_absol_path(t_info *info, char *path, char **arg)
 {
 	char	**temp;
 	char	*res;
@@ -61,7 +64,8 @@ static char	*handle_cmd_absol_path(char *path, char **arg)
 		++i;
 	}
 	if (!temp[i])
-		exit_with_err(arg[0], "command not found", 127, 1);
+		info->exit_code = print_err_with_exit_num(arg[0], \
+				"command not found", NULL, 127);
 	free(sla);
 	if (temp[i] == NULL)
 		res = NULL;
@@ -87,25 +91,32 @@ char	*check_absol_path(char **arg, t_info *info)
 {
 	char	*res;
 	char	*path;
+	int		file_valid;
 
 	res = NULL;
 	path = find_env_name(info);
 	if (ft_strchr(arg[0], '/'))
 	{
-		if (!check_exist_file(arg[0]))
+		file_valid = check_exist_file(arg[0]);
+		if (file_valid != 1)
 		{
-			dprintf(2," search not file\n");
+			if (file_valid == 0)
+				info->exit_code = print_err_with_exit_num(arg[0],\
+						"No such file or directory", NULL, 1);
+			if (file_valid == 2)
+				info->exit_code = print_err_with_exit_num(arg[0], \
+						"Permission denied", NULL, 126);
 			return (0);
 		}
 		else
 			return (ft_strdup(arg[0]));
 	}
 	if (path != NULL)
-		res = handle_cmd_absol_path(path, arg);
+		res = handle_cmd_absol_path(info, path, arg);
 	else
-		exit_with_err(arg[0], "No such file or directory", 1, 1);
+		info->exit_code = print_err_with_exit_num(arg[0], \
+				"No such file or directory", NULL, 1);
 	if (res == NULL && check_exist_file(arg[0]))
 		return (ft_strdup(arg[0]));
 	return (res);
 }
-

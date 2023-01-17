@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
-/*   Updated: 2022/12/24 20:46:57 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:50:14 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ int	init_info(t_info *info)
 	return (1);
 }
 
-void	init_terminal(int argc, char **argv)
+void	init_terminal(t_info *info, int argc, char **arg)
 {
 	struct termios	term;
 
-	(void) argv;
 	if (argc != 1)
 	{
-		//error
-		exit(1);
+		info->exit_code = print_err_with_exit_num(arg[2], \
+				"No such file or directory", NULL, 127);
+		exit(info->exit_code);
 	}
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);

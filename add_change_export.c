@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:51:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 02:08:10 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/17 20:39:10 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	valid_export_arg(char *arg)
 	i = 0;
 	if ((!ft_isalpha(arg[0])) && arg[0] != '_')
 		return (0);
-	while (arg[++i])
+	while (arg[++i] && arg[i] != '=')
 		if (!(ft_isalnum(arg[i]) || arg[i] == '_'))
 			return (0);
 	if (i == 0)
@@ -88,7 +88,7 @@ int	ft_export_with_arg(t_info *info, char **arg)
 	{
 		if (!valid_export_arg(arg[i]))
 		{
-			dprintf(2, "error\n");
+			dprintf(2, "error123\n");
 			continue ;
 		}
 		errno = add_change_export(arg[i], info);

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:42:13 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/12 05:54:42 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:28:43 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ int	check_valid_arg_exit(char *arg)
 	return (1);
 }
 
-void	ft_exit(char **arg, int pipe)
+void	ft_exit(t_info *info, char **arg, int pipe)
 {
-	int	errno;
-
 	if (!arg[1])
 	{
 		if (!pipe)
@@ -69,21 +67,21 @@ void	ft_exit(char **arg, int pipe)
 	if (check_valid_arg_exit(arg[1]) < 0)
 	{
 		print_err("exit", arg[1], "numeric argument required");
-		errno = (char)ft_strtol(arg[1]);
-		exit(errno);
+		info->exit_code = (char)ft_strtol(arg[1]);
+		exit(info->exit_code);
 	}
 	if (arg[2])
 	{
-		exit_with_err("exit", "too many arguments", 1, 1);
+		info->exit_code = print_err_with_exit_num("exit", \
+				"too many arguments", NULL, 1);
 		// not correct
-		errno = 1;
 		if (pipe)
-			exit(errno);
+			exit(info->exit_code);
 		return ;
 	}
 	if (arg[1])
-		errno = (char)ft_strtol(arg[1]);
+		info->exit_code = (char)ft_strtol(arg[1]);
 	if (!pipe)
 		printf("exit\n");
-	exit(errno);
+	exit(info->exit_code);
 }

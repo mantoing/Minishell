@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:31:40 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/09 18:52:20 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:32:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	exe_builtin(t_info *info, char **arg, int pipe)
 	else if (!ft_strcmp(*(arg), "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(*(arg), "exit"))
-		ft_exit(arg, pipe);
+		ft_exit(info, arg, pipe);
 }
