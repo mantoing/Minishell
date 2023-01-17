@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 03:34:45 by suhkim            #+#    #+#             */
-/*   Updated: 2022/11/30 01:18:09 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:11:14 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ char	**arrange_arg(char **arg, int arg_size)
 	ret[ret_size] = 0;
 	free_arg(arg, arg_size);
 	return (ret);
+}
+
+void	init_input_edge(t_input *input)
+{
+	input->head.pipe = 0;
+	input->head.heredoc = 0;
+	input->head.redir_l = 0;
+	input->head.redir_r = 0;
+	input->head.append = 0;
+	input->tail.pipe = 0;
+	input->tail.heredoc = 0;
+	input->tail.redir_l = 0;
+	input->tail.redir_r = 0;
+	input->tail.append = 0;
 }

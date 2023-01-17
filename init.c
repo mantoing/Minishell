@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 02:44:10 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:18:57 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_input(t_input *input)
 {
 	input->head.next = &input->tail;
 	input->tail.prev = &input->head;
+	init_input_edge(input);
 	input->token_size = 0;
 	return (1);
 }
@@ -53,17 +54,7 @@ int	init_info(t_info *info)
 	return (1);
 }
 
-void	init_terminal(t_info *info, int argc, char **arg)
+void	init_terminal(void)
 {
-	struct termios	term;
-
-	if (argc != 1)
-	{
-		info->exit_code = print_err_with_exit_num(arg[2], \
-				"No such file or directory", NULL, 127);
-		exit(info->exit_code);
-	}
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	set_terminal_not_echo();
 }

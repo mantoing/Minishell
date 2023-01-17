@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:54 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:11:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,12 @@ int		push_back_unlink(t_unlink *unlink, char *str);
 int		push_front_unlink(t_unlink *unlink, char *str);
 
 int		init_info(t_info *info);
-void	init_terminal(t_info *info, int argc, char **argv);
+void	init_terminal(void);
+void	init_input_edge(t_input *input);
 int		save_env(char **env, t_info *info);
 char	*get_env(t_info *info, char *name, int *i);
 
-void	parse(t_info *info, char *line);
+int		parse(t_info *info, char *line);
 int		ft_pipe(t_info *info);
 void	ft_token_parse(t_info *info, t_token *pipe, \
 		int *read_fd, int *write_fd);

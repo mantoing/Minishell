@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 02:04:11 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:17:50 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	ft_pipe(t_info *info)
 	{
 		if (temp->pipe || temp == &info->input->tail)
 		{
-			set_terminal_echo();
 			if (temp == &info->input->tail && pipe_idx == 0)
 				pid = exe_single_cmd(info, temp);
 			else
@@ -88,6 +87,5 @@ int	ft_pipe(t_info *info)
 			info->exit_code = WTERMSIG(status) + 128;
 	}
 	set_signal("SHELL");
-	set_terminal_not_echo();
 	return (1);
 }

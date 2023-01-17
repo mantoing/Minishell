@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 04:00:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 05:41:05 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,7 @@ int	split_token(t_info *info, char *target)
 	}
 	if (i != 0)
 		push_back_token(info->input, str);
+	if (quote != 0)
+		return (-1);
 	return (i);
 }

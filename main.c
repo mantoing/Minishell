@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 06:08:33 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ int main(int argc, char **argv, char **env)
     t_info  info;
 
     if (argc != 1)
-        return (-1);
+    {
+        info.exit_code = print_err_with_exit_num(argv[1], \
+				"No such file or directory", NULL, 127);
+		exit(info.exit_code);
+    }
     if (*(argv + 1))
         return (0);
     init_info(&info);
-    init_terminal(&info, argc, argv);
+    init_terminal();
     set_signal("SHELL");
     save_env(env, &info);
     while (1)
@@ -38,19 +42,21 @@ int main(int argc, char **argv, char **env)
         line = readline("minishell$ ");
         if (!line)
         {
-            dprintf(2,"exit\n");
+            printf("exit\n");
             break ;
         }
         else if (*line != '\0')
         {
-            parse(&info, line);
             add_history(line);
-            if (heredoc(&info))
-                ft_pipe(&info);
-            unlink_all(&info);
+            if (parse(&info, line))
+            {
+                if (heredoc(&info))
+                    ft_pipe(&info);
+                unlink_all(&info);
+                free_unlink(info.unlink);
+            }
             free(line);
             free_token(info.input);
-            free_unlink(info.unlink);
             line = NULL;
         }
     }
