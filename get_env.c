@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:47:27 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 10:47:18 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 
 
-int	check_name(char *target)
+static int	check_name(char *target)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	check_name(char *target)
 	return (i);
 }
 
-char	*get_last_exit_code(t_info *info)
+static char	*get_last_exit_code(t_info *info)
 {
 	if (g_signal)
 	{
@@ -73,4 +73,18 @@ char	*get_env(t_info *info, char *target, int *i)
 		return (get_last_exit_code(info));
 	}
 	return (str);
+}
+
+char	*get_env_value(t_info *info, char *name)
+{
+	t_node	*temp;
+
+	temp = info->env_stack->head.next;
+	while (temp != &info->env_stack->tail)
+	{
+		if (!ft_strcmp(temp->env_name, name))
+			return (ft_strdup(temp->env_value));
+		temp = temp->next;
+	}
+	return (NULL);
 }

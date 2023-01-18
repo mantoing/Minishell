@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 06:07:02 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 08:23:38 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 10:16:29 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	ft_close(int fd)
 {
 	if (fd == 0 || fd == 1 || fd == 2)
 		return ;
-	dprintf(2, "how closing for %d  %d\n",fd, close(fd));
+	close(fd);
 }

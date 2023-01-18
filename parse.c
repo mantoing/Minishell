@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:14:03 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:15:37 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	parse(t_info *info, char *line)
 		len = split_token(info, line);
 		if (len < 0)
 		{
+			if (len == -2)
+				return (0);
 			info->exit_code = print_err_with_exit_num(\
 					"syntax error near unexpected token quotes"\
 					, NULL, NULL, 258);

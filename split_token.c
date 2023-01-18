@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:47:27 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:27:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,44 @@ static	int	not_env_arg(char c)
 	return (0);
 }
 
+static int	count_dup_arg(char *str, char target)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (*(str + i))
+	{
+		if (*(str + i) == target)
+			cnt++;
+		else 
+			break ;
+		i++;
+	}
+	return (cnt);
+}
+
 static int	is_redir(t_info *info, char *target)
 {
+	int		cnt;
+	char	*str;
+
 	if (*target == '<')
 	{
-		if (*(target + 1) == '<')
+		cnt = count_dup_arg(target, '<');
+		if (cnt >= 3)
+		{
+			if (cnt > 3)
+				cnt = 2;
+			else
+				cnt -= 2;
+			str = ft_substr(target, 0, cnt);
+			info->exit_code = put_err_redir(str, 258);
+			free(str);
+			return (-2);
+		}
+		else if (cnt == 2)
 		{
 			push_back_token(info->input, ft_strdup("<<"));
 			info->input->tail.prev->heredoc = 1;
@@ -46,7 +79,19 @@ static int	is_redir(t_info *info, char *target)
 	}
 	else if (*target == '>')
 	{
-		if (*(target + 1) == '>')
+		cnt = count_dup_arg(target, '>');
+		if (cnt >= 3)
+		{
+			if (cnt > 3)
+				cnt = 2;
+			else
+				cnt -= 2;
+			str = ft_substr(target, 0, cnt);
+			info->exit_code = put_err_redir(str, 258);
+			free(str);
+			return (-2);
+		}
+		else if (cnt == 2)
 		{
 			push_back_token(info->input, ft_strdup(">>"));
 			info->input->tail.prev->append = 1;
@@ -60,7 +105,7 @@ static int	is_redir(t_info *info, char *target)
 		}
 	}
 	else
-		return (0);
+		return (-2);
 }
 
 int	split_token(t_info *info, char *target)
@@ -72,7 +117,6 @@ int	split_token(t_info *info, char *target)
 	quote = 0;
 	i = 0;
 	str = ft_strdup("");
-
 	while (*(target + i) && !(quote == 0 && parse_isspace(*(target + i))))
 	{
 		if (*(target + i) == '\'')
@@ -104,6 +148,7 @@ int	split_token(t_info *info, char *target)
 				push_back_token(info->input, ft_strdup("|"));
 				info->input->tail.prev->pipe = 1;
 				info->pipe_cnt++;
+				free(str);
 				return (1);
 			}
 		}
@@ -113,7 +158,10 @@ int	split_token(t_info *info, char *target)
 			if (ft_strlen(str))
 				break ;
 			else
+			{
+				free(str);
 				return (is_redir(info, target + i));
+			}
 		}
 		else
 		{
@@ -143,7 +191,8 @@ int	split_token(t_info *info, char *target)
 		i++;
 	}
 	if (i != 0)
-		push_back_token(info->input, str);
+		push_back_token(info->input, ft_strdup(str));
+	free(str);
 	if (quote != 0)
 		return (-1);
 	return (i);

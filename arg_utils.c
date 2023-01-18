@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:39:39 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/11 19:42:03 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:37:34 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ void	free_arg(char **arg, int arg_size)
 	if (!arg)
 		return ;
 	i = 0;
-	while (i <= arg_size)
+	if (*arg)
 	{
-		free(*(arg + i));
-		i++;
+		while (i <= arg_size)
+		{
+			free(*(arg + i));
+			i++;
+		}
 	}
 	free(arg);
 }

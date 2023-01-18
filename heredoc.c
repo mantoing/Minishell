@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 07:01:54 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:50:53 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char	*create_temp_file_name(size_t *temp_cnt)
 {
 	char	*n;
 	char	*temp_file_name;
+	char	*ret;
 	int		fd;
 
 	n = ft_itoa(*temp_cnt);
@@ -40,8 +41,10 @@ static char	*create_temp_file_name(size_t *temp_cnt)
 		temp_file_name = ft_strjoin(ft_strdup("/tmp/minishell_tmp_"), n);
 		fd = open(temp_file_name, O_RDONLY);
 	}
+	ret = ft_strdup(temp_file_name);
+	free(temp_file_name);
 	close(fd);
-	return (temp_file_name);
+	return (ret);
 }
 
 static void	exe_heredoc(t_token *target, size_t *temp_cnt)
@@ -49,6 +52,7 @@ static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 	int		fd;
 	char	*heredoc_line;
 	char	*temp_file_name;
+	char	*output;
 
 	temp_file_name = create_temp_file_name(temp_cnt);
 	fd = open(temp_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -64,8 +68,10 @@ static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 			free(heredoc_line);
 			break ;
 		}
-		write(fd, ft_strjoin(heredoc_line, ft_strdup("\n")),\
-				ft_strlen(heredoc_line) + 1);
+		output = ft_strjoin(heredoc_line, ft_strdup("\n"));
+		write(fd, output, ft_strlen(output) + 1);
+		free(output);
+		heredoc_line = NULL;
 	}
 	close(fd);
 }
@@ -73,13 +79,11 @@ static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 
 static int	check_heredoc(t_info *info)
 {
-	int		fd[2];
 	t_token	*temp;
 	pid_t	pid;
 	size_t	temp_cnt;
 
 	temp_cnt = 0;
-	pipe(fd);
 	temp = info->input->head.next;
 	set_signal("IGNORE");
 	pid = fork();

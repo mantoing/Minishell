@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 07:35:13 by jaeywon           #+#    #+#             */
-/*   Updated: 2022/12/25 22:28:13 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:34:39 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static char	**put_env_name_to_arr(t_info *info)
 	list_size = cnt_list_size(info);
 	tmp = info->env_stack->head.next;
 	name_arr = (char **)malloc((sizeof(char *) * (list_size + 1)));
+	if (!name_arr)
+		return (0);
 	while (i < list_size)
 	{
 		name_arr[i] = ft_strdup(tmp->env_name);
@@ -80,7 +82,7 @@ static char	*find_name_and_value(char *str, t_info *info)
 		if (!ft_strncmp(str, tmp->env_name, ft_strlen(tmp->env_name)))
 		{
 			if (tmp->env_value)
-				return (ft_strdup(tmp->env_value));
+				return (tmp->env_value);
 			return (NULL);
 		}
 		tmp = tmp->next;

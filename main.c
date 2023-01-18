@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 07:29:43 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:43:43 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,22 @@ int main(int argc, char **argv, char **env)
             add_history(line);
             if (parse(&info, line))
             {
-                t_token *temp;
-                temp = info.input->head.next;
+//                t_token *temp;
+//                temp = info.input->head.next;
+//                while (temp != &info.input->tail)
+//                {
+//                    dprintf(2, "%s\n", temp->token);
+//                    temp = temp->next;
+//                }
                 if (heredoc(&info))
                     ft_pipe(&info);
                 unlink_all(&info);
                 free_unlink(info.unlink);
             }
-            free(line);
             free_token(info.input);
-            line = NULL;
         }
+        free(line);
+        line = NULL;
     }
     return (0);
 }

@@ -6,28 +6,11 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:52 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 12:30:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-static void	get_both_pwd(char **env, char **pwd_value, char **oldpwd_value)
-{
-	int	i;
-
-	i = 0;
-	*pwd_value = NULL;
-	*oldpwd_value = NULL;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PWD", 3) == 0)
-			*pwd_value = env[i];
-		if (ft_strncmp(env[i], "OLDPWD", 6) == 0)
-			*oldpwd_value = env[i];
-		i++;
-	}
-}
 
 static int run_chdir(t_info *info, char **arg)
 {
@@ -39,87 +22,64 @@ static int run_chdir(t_info *info, char **arg)
 		{
 			info->exit_code = print_err_with_exit_num("cd", \
 					"HOME path does not exist", NULL, 1);
-			return (1);
+			return (0);
 		}
-		return (0);
+		return (1);
 	}
 	else if (arg[1][0] == '~')
 	{
 		temp = arg[1];
-		arg[1] = ft_strjoin(info->home_dir, arg[1] + 1);
+		arg[1] = ft_strjoin(ft_strdup(info->home_dir), ft_strdup(arg[1] + 1));
 		free(temp);
 	}
 	if (chdir(arg[1]) < 0)
 	{
 		info->exit_code = print_err_with_exit_num("cd", arg[1],\
 				strerror(errno), 1);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
-static void	change_oldpwd(char *cur, char *old_pwdvalue, t_info *info)
+static void	change_oldpwd(t_info *info)
 {
-	char **arg;
-	char *tmp;
+	t_node	*target;
 
-	if (!old_pwdvalue)
-		return ;
-	if (cur)
-		tmp = ft_strjoin("OLDPWD=", cur);
-	else
-		tmp = ft_strjoin("OLDPWD=", "(null)");
-	arg = malloc(sizeof(char *) * 3);
-	arg[0] = ft_strdup("export");
-	arg[1] = tmp;
-	arg[2] = NULL;
-	ft_export(arg, info);
-	free(arg[0]);
-	free(arg[1]);
-	free(arg);
+	target = info->env_stack->head.next;
+	while (target != &info->env_stack->tail)
+	{
+		if (!ft_strcmp(target->env_name, "OLDPWD"))
+			break ;
+		target = target->next;
+	}
+	free(target->env_value);
+	target->env_value = get_env_value(info, "PWD");
 }
 
-static void change_pwd(char *pwd_value, t_info *info)
+static void change_pwd(t_info *info)
 {
-	char *tmp;
-	char *cwd;
-	char **arg;
+	char	*cwd;
+	t_node	*target;
 
-	if (!pwd_value)
-		return ;
 	cwd = getcwd(NULL, 0);
-	if (cwd)
-		tmp = ft_strjoin("PWD=", cwd);
-	else
-		tmp = ft_strjoin("PWD=", "(null)");
-	arg = malloc(sizeof(char *) * 3);
-	arg[0] = ft_strdup("export");
-	arg[1] = tmp;
-	arg[2] = NULL;
-	ft_export(arg, info);
-	free(arg[0]);
-	free(arg[1]);
-	free(arg);
+	target = info->env_stack->head.next;
+	while (target != &info->env_stack->tail)
+	{
+		if (!ft_strcmp(target->env_name, "PWD"))
+			break ;
+		target = target->next;
+	}
+	free(target->env_value);
+	target->env_value = ft_strdup(cwd);
+	free(cwd);
 }
 
 int	ft_cd(char **arg, t_info *info)
 {
-	char	*cur;
-	char	*pwd_value;
-	char	*old_pwd_value;
-	char	**env;
-
-	env = change_list_to_arr_env(info);
-	cur = getcwd(NULL, 0);
-	get_both_pwd(env, &pwd_value, &old_pwd_value);
-	if (run_chdir(info, arg))
-	{
-		free(cur);
-		return (1);
-	}
-	change_pwd(pwd_value, info);
-	change_oldpwd(cur, old_pwd_value, info);
-	free(cur);
+	if (!run_chdir(info, arg))
+		return (0);
+	change_oldpwd(info);
+	change_pwd(info);
 	g_signal = 0;
-	return (0);
+	return (1);
 }

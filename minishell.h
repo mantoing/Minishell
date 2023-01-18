@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 06:11:25 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/18 13:19:12 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int		init_info(t_info *info);
 void	init_terminal(void);
 void	init_input_edge(t_input *input);
 int		save_env(char **env, t_info *info);
-char	*get_env(t_info *info, char *name, int *i);
+char	*get_env(t_info *info, char *target, int *i);
+char	*get_env_value(t_info *info, char *name);
 
 int		parse(t_info *info, char *line);
 int		ft_pipe(t_info *info);
@@ -156,5 +157,6 @@ void	set_terminal_not_echo(void);
 
 int		print_err_with_exit_num(char *s1, char *s2, char *s3, int e_code);
 void	print_err(char *s1, char *s2, char *s3);
+int		put_err_redir(char *s1, int e_code);
 
 #endif

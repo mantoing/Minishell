@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 06:21:41 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/12 03:54:24 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/18 11:25:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	ft_env(t_info *info)
 			printf("%s\n", env_arr[i]);
 		i++;
 	}
-	free(env_arr);
+	free_temp(env_arr);
 	return (1);
 }
