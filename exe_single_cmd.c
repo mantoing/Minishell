@@ -6,23 +6,14 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 13:38:40 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:51:40 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-int	exe_single_cmd(t_info *info, t_token *temp)
+static pid_t	sub_single_cmd(t_info *info, char **arg, pid_t pid)
 {
-	char	**arg;
-	pid_t	pid;
-	int		temp_fd_out;
-	int		temp_fd_in;
-
-	pid = 0;
-	temp_fd_out = dup(STDOUT_FILENO);
-	temp_fd_in = dup(STDIN_FILENO);
-	arg = check_redirection(info, temp);
 	if (!is_empty_arg(arg))
 	{
 		if (check_builtin(*(arg)))
@@ -40,6 +31,21 @@ int	exe_single_cmd(t_info *info, t_token *temp)
 			}
 		}
 	}
+	return (pid);
+}
+
+int	exe_single_cmd(t_info *info, t_token *temp)
+{
+	char	**arg;
+	pid_t	pid;
+	int		temp_fd_out;
+	int		temp_fd_in;
+
+	pid = 0;
+	temp_fd_out = dup(STDOUT_FILENO);
+	temp_fd_in = dup(STDIN_FILENO);
+	arg = check_redirection(info, temp);
+	pid = sub_single_cmd(info, arg, pid);
 	if (arg)
 		free_arg(arg, cnt_arg_arr_size(arg));
 	dup2(temp_fd_out, STDOUT_FILENO);
