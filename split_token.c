@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 23:12:12 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 23:20:43 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	split_token(t_info *info, char *target)
 	int		flag;
 
 	i = 0;
+	info->quote = 0;
 	str = ft_strdup("");
 	while (*(target + i) && !(info->quote == 0 && parse_isspace(*(target + i))))
 	{
