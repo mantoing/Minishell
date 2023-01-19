@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 05:32:27 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 23:35:13 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/20 01:31:52 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	option_n_echo(char *arg)
 	i = 1;
 	if (arg == NULL)
 		return (1);
-	if (ft_strcmp(arg, "-n") != 0)
+	if (ft_strncmp(arg, "-n", 2) != 0)
 		return (1);
 	++i;
 	while (arg[i])
