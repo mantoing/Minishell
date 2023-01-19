@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:34:10 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 17:08:54 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,39 @@
 
 int	g_signal;
 
+static void	init_main(int argc, char **argv, char **env, t_info *info)
+{
+	if (argc != 1)
+	{
+		info->exit_code = print_err_with_exit_num(argv[1], \
+				"No such file or directory", NULL, 127);
+		exit(info->exit_code);
+	}
+	init_info(info);
+	init_terminal();
+	set_signal("SHELL");
+	save_env(env, info);
+}
+
+static void	do_minishell(t_info info, char *line)
+{
+	add_history(line);
+	if (parse(&info, line))
+	{
+		if (heredoc(&info))
+			ft_pipe(&info);
+		unlink_all(&info);
+		free_unlink(info.unlink);
+	}
+	free_token(info.input);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_info	info;
 
-	if (argc != 1)
-	{
-		info.exit_code = print_err_with_exit_num(argv[1], \
-				"No such file or directory", NULL, 127);
-		exit(info.exit_code);
-	}
-//	if (*(argv + 1))
-//		return (0);
-	init_info(&info);
-	init_terminal();
-	set_signal("SHELL");
-	save_env(env, &info);
+	init_main(argc, argv, env, &info);
 	while (1)
 	{
 		if (g_signal == 1)
@@ -45,24 +61,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		else if (*line != '\0')
-		{
-			add_history(line);
-			if (parse(&info, line))
-			{
-//				t_token *temp;
-//				temp = info.input->head.next;
-//				while (temp != &info.input->tail)
-//				{
-//					dprintf(2, "%s\n", temp->token);
-//					temp = temp->next;
-//				}
-				if (heredoc(&info))
-					ft_pipe(&info);
-				unlink_all(&info);
-				free_unlink(info.unlink);
-			}
-			free_token(info.input);
-		}
+			do_minishell(info, line);
 		free(line);
 		line = NULL;
 	}
