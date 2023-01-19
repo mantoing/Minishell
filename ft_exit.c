@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:42:13 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 15:15:04 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 23:18:19 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	ft_exit(t_info *info, char **arg, int pipe)
 	{
 		info->exit_code = print_err_with_exit_num("exit", \
 				"too many arguments", NULL, 1);
-		// not correct 
 		if (pipe)
 			exit(info->exit_code);
 		return ;
