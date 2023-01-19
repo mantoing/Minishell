@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:24:38 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/20 02:20:31 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ static void	change_pwd(t_info *info)
 			break ;
 		target = target->next;
 	}
-	free(target->env_value);
-	target->env_value = ft_strdup(cwd);
+	if (cwd)
+	{
+		free(target->env_value);
+		target->env_value = ft_strdup(cwd);
+	}
 	free(cwd);
 }
 

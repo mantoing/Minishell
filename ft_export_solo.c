@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 07:35:13 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 23:36:59 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/20 02:13:47 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static char	*find_name_and_value(char *str, t_info *info)
 
 static void	only_print_export(t_info *info, char *sorted, int flag)
 {
+	char	*temp;
+
 	if (flag == 1)
 	{
 		ft_putstr_fd("declare -x ", 1);
@@ -88,7 +90,9 @@ static void	only_print_export(t_info *info, char *sorted, int flag)
 	if (flag == 2)
 	{
 		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(find_name_and_value(sorted, info), 1);
+		temp = find_name_and_value(sorted, info);
+		if (temp)
+			ft_putstr_fd(temp, 1);
 		ft_putstr_fd("\"\n", 1);
 	}
 }
