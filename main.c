@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 22:33:41 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 23:15:44 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@ static void	do_minishell(t_info *info, char *line)
 	add_history(line);
 	if (parse(info, line))
 	{
-		t_token	*temp;
-		temp = info->input->head.next;
-		dprintf(2, "finished parse\n\n\n");
-		while (temp != &info->input->tail)
-		{
-			dprintf(2, "%s\n", temp->token);
-			temp = temp->next;
-		}
-		dprintf(2, "\n\n\nfinished parse\n");
 		if (heredoc(info))
 			ft_pipe(info);
 		unlink_all(info);

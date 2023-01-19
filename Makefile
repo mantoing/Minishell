@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2023/01/19 19:03:53 by jaeywon          ###   ########.fr        #
+#    Updated: 2023/01/19 23:12:31 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRC = main.c \
 	  error.c \
 	  free_unlink.c \
 	  utils.c \
-	  is_redir.c
+	  is_redir.c \
+	  split_token_utils.c
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f

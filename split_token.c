@@ -6,26 +6,11 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 23:09:03 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 23:12:12 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-static	int	parse_isspace(char c)
-{
-	if (c == '\t' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\v' || c == ' ')
-		return (1);
-	return (0);
-}
-
-static	int	not_env_arg(char c)
-{
-	if (!ft_isalnum(c) && c != '_' && c != '?' && c != '\'' && c != '\"')
-		return (1);
-	return (0);
-}
 
 static char	*if_quotes(t_info *info, char *target, int *i, char *str)
 {
@@ -100,14 +85,14 @@ static int	check_split_token(t_info *info, char *target, int *i, char **str)
 	else if (*(target + *i) == '|' && info->quote == 0)
 	{
 		if (if_pipe(info, *str))
-			return (0);//break;
+			return (0);
 		return (1);
 	}
 	else if ((*(target + *i) == '<' || *(target + *i) == '>') && \
 			info->quote == 0)
 	{
 		if (ft_strlen(*str))
-			return (0); //break;
+			return (0);
 		else
 		{
 			free(*str);
@@ -137,30 +122,6 @@ int	split_token(t_info *info, char *target)
 			return (1);
 		else if (flag == 2)
 			return (is_redir(info, target + i));
-//		if (*(target + i) == '\'' || *(target + i) == '\"')
-//			str = if_quotes(info, target, &i, str);
-//		else if (parse_isspace(*(target + i)) && info->quote == 0)
-//				i++;
-//		else if (*(target + i) == '|' && info->quote == 0)
-//		{
-//			if (if_pipe(info, str))
-//				break ;
-//			return (1);
-//		}
-//		else if ((*(target + i) == '<' || *(target + i) == '>') && \
-//				info->quote == 0)
-//		{
-//			if (ft_strlen(str))
-//				break ;
-//			else
-//			{
-//				free(str);
-//				return (is_redir(info, target + i));
-//			}
-//		}
-//		else
-//			str = if_dollor(info, target, &i, str);
-//		i++;
 	}
 	if (i != 0)
 		push_back_token(info->input, ft_strdup(str));
