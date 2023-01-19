@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:25:45 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:02:03 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,37 @@ static int	count_dup_arg(char *str, char target)
 		i++;
 	}
 	return (cnt);
+}
+
+static int	check_redir_left()
+{
+	if (*target == '<')
+	{
+		cnt = count_dup_arg(target, '<');
+		if (cnt >= 3)
+		{
+			if (cnt > 3)
+				cnt = 2;
+			else
+				cnt -= 2;
+			str = ft_substr(target, 0, cnt);
+			info->exit_code = put_err_redir(str, 258);
+			free(str);
+			return (-2);
+		}
+		else if (cnt == 2)
+		{
+			push_back_token(info->input, ft_strdup("<<"));
+			info->input->tail.prev->heredoc = 1;
+			return (2);
+		}
+		else
+		{
+			push_back_token(info->input, ft_strdup("<"));
+			info->input->tail.prev->redir_l = 1;
+			return (1);
+		}
+	}
 }
 
 static int	is_redir(t_info *info, char *target)
