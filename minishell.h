@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 23:51:30 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/20 01:24:16 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <termios.h>
+# include <sys/stat.h>
 # include "./libft/libft.h"
 
 typedef struct s_node
@@ -178,6 +179,8 @@ void	change_heredoc_file_name(t_token *arg, char *temp_file_name);
 void	change_arg_temp_file(t_info *info);
 
 int		is_redir(t_info *info, char *target);
+int		is_dir(t_info *info, char *name);
 int		parse_isspace(char c);
 int		not_env_arg(char c);
+
 #endif

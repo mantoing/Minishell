@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 23:35:41 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/20 01:25:08 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ static int	check_file_valid(char **arg, t_info *info)
 		{
 			if (file_valid == 0)
 				info->exit_code = print_err_with_exit_num(arg[0], \
-						"No such file or directory", NULL, 1);
+						"No such file or directory", NULL, 127);
 			if (file_valid == 2)
 				info->exit_code = print_err_with_exit_num(arg[0], \
 						"Permission denied", NULL, 126);
 			ret = 1;
 		}
 		else
-			ret = 2;
+			ret = is_dir(info, arg[0]);
 	}
 	return (ret);
 }
