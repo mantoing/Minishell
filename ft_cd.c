@@ -6,11 +6,19 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/20 02:20:31 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/20 02:40:33 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+
+static int	no_home(t_info *info, char *temp)
+{
+	free(temp);
+	info->exit_code = print_err_with_exit_num("cd", \
+			"HOME path does not exist", NULL, 1);
+	return (0);
+}
 
 static int	run_chdir(t_info *info, char **arg)
 {
@@ -18,12 +26,10 @@ static int	run_chdir(t_info *info, char **arg)
 
 	if (arg[1] == NULL)
 	{
-		if (chdir(info->home_dir) < 0)
-		{
-			info->exit_code = print_err_with_exit_num("cd", \
-					"HOME path does not exist", NULL, 1);
-			return (0);
-		}
+		temp = get_env_value(info, "HOME");
+		if (chdir(temp) < 0)
+			return (no_home(info, temp));
+		free(temp);
 		return (1);
 	}
 	else if (arg[1][0] == '~')
