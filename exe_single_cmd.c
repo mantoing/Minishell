@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:51:40 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 19:01:28 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static pid_t	sub_single_cmd(t_info *info, char **arg, pid_t pid)
 	return (pid);
 }
 
-int	exe_single_cmd(t_info *info, t_token *temp)
+pid_t	exe_single_cmd(t_info *info, t_token *temp)
 {
 	char	**arg;
 	pid_t	pid;
