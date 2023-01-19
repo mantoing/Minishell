@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:06:01 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 17:08:54 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:03:46 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ static void	init_main(int argc, char **argv, char **env, t_info *info)
 	save_env(env, info);
 }
 
-static void	do_minishell(t_info info, char *line)
+static void	do_minishell(t_info *info, char *line)
 {
 	add_history(line);
-	if (parse(&info, line))
+	if (parse(info, line))
 	{
-		if (heredoc(&info))
-			ft_pipe(&info);
-		unlink_all(&info);
-		free_unlink(info.unlink);
+		if (heredoc(info))
+			ft_pipe(info);
+		unlink_all(info);
+		free_unlink(info->unlink);
 	}
-	free_token(info.input);
+	free_token(info->input);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		else if (*line != '\0')
-			do_minishell(info, line);
+			do_minishell(&info, line);
 		free(line);
 		line = NULL;
 	}

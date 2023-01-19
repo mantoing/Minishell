@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 20:17:31 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 17:56:26 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/18 10:15:50 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,6 @@ void	set_pipe(t_info *info, int *read_fd, int *write_fd, int pipe_idx)
 		pipe(write_fd);
 }
 
-static void	handle_e_code(t_info *info, pid_t pid)
-{
-	int	status;
-
-	if (pid)
-	{
-		waitpid(pid, &status, 0);
-		while (waitpid(-1, 0, 0) != -1)
-			;
-		if (WIFEXITED(status))
-			info->exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			info->exit_code = WTERMSIG(status) + 128;
-	}
-	set_signal("SHELL");
-}
-
 int	ft_pipe(t_info *info)
 {
 	t_token	*temp;
@@ -61,6 +44,7 @@ int	ft_pipe(t_info *info)
 	int		read_fd[2];
 	int		write_fd[2];
 	pid_t	pid;
+	int		status;
 
 	i = 0;
 	pipe_idx = 0;
@@ -92,6 +76,16 @@ int	ft_pipe(t_info *info)
 		temp = temp->next;
 		i++;
 	}
-	handle_e_code(info, pid);
+	if (pid)
+	{
+		waitpid(pid, &status, 0);
+		while (waitpid(-1, 0, 0) != -1)
+			;
+		if (WIFEXITED(status))
+			info->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			info->exit_code = WTERMSIG(status) + 128;
+	}
+	set_signal("SHELL");
 	return (1);
 }
