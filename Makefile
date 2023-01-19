@@ -6,13 +6,13 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2023/01/19 23:12:31 by suhkim           ###   ########.fr        #
+#    Updated: 2023/01/19 23:50:56 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
 COMFILE_FLAGS = -I${HOME}/.brew/opt/readline/include
 SRC = main.c \
