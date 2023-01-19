@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 17:25:25 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 19:05:20 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ static int	check_heredoc(t_info *info)
 	if (pid == 0)
 	{
 		while (temp != &info->input->tail)
- 		{
- 			if (temp->heredoc)
- 			{
- 				if (valid_heredoc(info, temp))
+		{
+			if (temp->heredoc)
+			{
+				if (valid_heredoc(info, temp))
 					is_heredoc(temp, &temp_cnt);
- 				else
+				else
 					exit(0);
- 			}
- 			temp = temp->next;
- 		}
+			}
+			temp = temp->next;
+		}
 		exit(0);
 	}
 	return (pid);
@@ -82,17 +82,19 @@ static void	save_temp_num(t_info *info)
 
 	temp_cnt = 0;
 	temp = info->input->head.next;
- 	while (temp != &info->input->tail)
+	while (temp != &info->input->tail)
 	{
 		if (temp->heredoc)
+		{
 			if (valid_heredoc(info, temp))
 			{
 				push_back_unlink(info->unlink, \
 						create_temp_file_name(&temp_cnt));
 				temp_cnt += 1;
 			}
- 		temp = temp->next;
- 	}
+		}
+		temp = temp->next;
+	}
 }
 
 int	heredoc(t_info *info)
