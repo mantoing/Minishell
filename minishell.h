@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 19:55:05 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 20:09:06 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ typedef struct s_unlink
 	int				temp_file_cnt;
 }	t_unlink;
 
+typedef struct s_fd
+{
+	int	read_fd[2];
+	int	write_fd[2];
+}	t_fd;
+
 typedef struct s_info
 {
 	t_stack			*env_stack;
@@ -80,8 +86,6 @@ typedef struct s_info
 	char			*home_dir;
 	int				exit_code;
 	int				pipe_cnt;
-	int				write_fd[2];
-	int				read_fd[2];
 }	t_info;
 
 extern int	g_signal;
