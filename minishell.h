@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:20:35 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:48:42 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	ft_close(int fd);
 void	ft_dup2(int fd1, int fd2);
 
 int		get_arg_size(t_info *info, t_token *arg, t_token *pipe);
+int		cal_arg_length(char **arg);
 t_token	*get_first_arg(t_info *info, t_token *pipe);
 void	conv_arg(t_token *temp, char **arg, int arg_size);
 void	free_arg(char **arg, int arg_size);

@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 03:34:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 15:01:54 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:46:02 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,14 @@ void	free_temp(char **temp)
 	while (temp[i])
 		free(temp[i++]);
 	free (temp);
+}
+
+int	cal_arg_length(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+		i++;
+	return (i);
 }
