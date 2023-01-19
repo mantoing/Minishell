@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 22:41:23 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:18:42 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/20 01:59:09 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	redir_r(t_info *info, t_token *target)
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
 		{
-			print_err_with_exit_num(target->next->token, strerror(errno), \
-					NULL, errno);
+			info->exit_code = print_err_with_exit_num(target->next->token, \
+					strerror(errno), NULL, 1);
 			return (0);
 		}
 		ft_dup2(fd, STDOUT_FILENO);
