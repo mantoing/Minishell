@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:51:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 02:28:47 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 14:42:09 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void change_env(char *value, t_node *env)
 {
 	free(env->env_value);
 	env->env_value = ft_strdup(value);
+	free(value);
 	return ;
 }
 
@@ -27,7 +28,10 @@ static int	push_non_value_env(t_info *info, char *name)
 	while (env != &info->env_stack->tail)
 	{
 		if (!ft_strcmp(name, env->env_name))
+		{
+			free(name);
 			return (0);
+		}
 		env = env->next;
 	}
 	if (!push_back_env(info->env_stack, name, NULL))
@@ -70,6 +74,7 @@ static int	add_change_export(char *arg, t_info *info)
 		if (!ft_strcmp(name, env->env_name))
 		{
 			change_env(value, env);
+			free(name);
 			return (0);
 		}
 		env = env->next;
