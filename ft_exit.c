@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:42:13 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 02:08:08 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:15:04 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_valid_arg_exit(char *arg)
 	return (1);
 }
 
-void	ft_exit(t_info *info, char **arg, int pipe)
+static void	sub_ft_exit(t_info *info, char **arg, int pipe)
 {
 	if (!arg[1])
 	{
@@ -70,11 +70,16 @@ void	ft_exit(t_info *info, char **arg, int pipe)
 				"numeric argument required", 255);
 		exit(info->exit_code);
 	}
+}
+
+void	ft_exit(t_info *info, char **arg, int pipe)
+{
+	sub_ft_exit(info, arg, pipe);
 	if (arg[2])
 	{
 		info->exit_code = print_err_with_exit_num("exit", \
 				"too many arguments", NULL, 1);
-		// not correct
+		// not correct 
 		if (pipe)
 			exit(info->exit_code);
 		return ;

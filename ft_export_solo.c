@@ -6,21 +6,11 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 07:35:13 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 11:34:39 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:26:05 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-static int	sort_len(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
 
 static char	**sort_name_arr(char **name)
 {
@@ -60,8 +50,6 @@ static char	**put_env_name_to_arr(t_info *info)
 	list_size = cnt_list_size(info);
 	tmp = info->env_stack->head.next;
 	name_arr = (char **)malloc((sizeof(char *) * (list_size + 1)));
-	if (!name_arr)
-		return (0);
 	while (i < list_size)
 	{
 		name_arr[i] = ft_strdup(tmp->env_name);
@@ -82,12 +70,27 @@ static char	*find_name_and_value(char *str, t_info *info)
 		if (!ft_strncmp(str, tmp->env_name, ft_strlen(tmp->env_name)))
 		{
 			if (tmp->env_value)
-				return (tmp->env_value);
+				return (ft_strdup(tmp->env_value));
 			return (NULL);
 		}
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+static void	only_print_export(t_info *info, char *sorted, int flag)
+{
+	if (flag == 1)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(sorted, 1);
+	}
+	if (flag == 2)
+	{
+		ft_putstr_fd("=\"", 1);
+		ft_putstr_fd(find_name_and_value(sorted, info), 1);
+		ft_putstr_fd("\"\n", 1);
+	}
 }
 
 int	ft_export_solo(t_info *info)
@@ -103,17 +106,14 @@ int	ft_export_solo(t_info *info)
 	len = sort_len(sorted_name_arr);
 	while (i < len)
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(sorted_name_arr[i], 1);
+		only_print_export(info, sorted_name_arr[i], 1);
 		if (!find_name_and_value(sorted_name_arr[i], info))
 		{
 			ft_putstr_fd("\n", 1);
 			i++;
 			continue ;
 		}
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(find_name_and_value(sorted_name_arr[i], info), 1);
-		ft_putstr_fd("\"\n", 1);
+		only_print_export(info, sorted_name_arr[i], 2);
 		i++;
 	}
 	free_temp(env_name_arr);
