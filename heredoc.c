@@ -6,46 +6,11 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:56:34 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:25:25 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-static int	valid_heredoc(t_info *info, t_token *temp)
-{
-	if (temp->next == &info->input->tail || temp->next->pipe \
-			|| temp->next->redir_r || temp->next->redir_l \
-			|| temp->next->heredoc || temp->next->append)
-		return (0);
-	else
-		return (1);
-}
-
-static char	*create_temp_file_name(size_t *temp_cnt)
-{
-	char	*n;
-	char	*temp_file_name;
-	char	*ret;
-	int		fd;
-
-	n = ft_itoa(*temp_cnt);
-	temp_file_name = ft_strjoin(ft_strdup("/tmp/minishell_tmp_"), n);
-	fd = open(temp_file_name, O_RDONLY);
-	while (fd >= 0)
-	{
-		close(fd);
-		*temp_cnt += 1;
-		free(temp_file_name);
-		n = ft_itoa(*temp_cnt);
-		temp_file_name = ft_strjoin(ft_strdup("/tmp/minishell_tmp_"), n);
-		fd = open(temp_file_name, O_RDONLY);
-	}
-	ret = ft_strdup(temp_file_name);
-	free(temp_file_name);
-	close(fd);
-	return (ret);
-}
 
 static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 {
@@ -76,6 +41,12 @@ static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 	close(fd);
 }
 
+static void	is_heredoc(t_token *temp, size_t *temp_cnt)
+{
+	exe_heredoc(temp->next, temp_cnt);
+	*temp_cnt += 1;
+}
+
 static int	check_heredoc(t_info *info)
 {
 	t_token	*temp;
@@ -93,10 +64,7 @@ static int	check_heredoc(t_info *info)
  			if (temp->heredoc)
  			{
  				if (valid_heredoc(info, temp))
-				{
-					exe_heredoc(temp->next, &temp_cnt);
-					temp_cnt += 1;
-				}
+					is_heredoc(temp, &temp_cnt);
  				else
 					exit(0);
  			}
@@ -125,54 +93,6 @@ static void	save_temp_num(t_info *info)
 			}
  		temp = temp->next;
  	}
-}
-
-static void	change_heredoc_file_name(t_token *arg, char *temp_file_name)
-{
-	free(arg->token);
-	arg->token = ft_strdup(temp_file_name);
-}
-
-static void	change_arg_temp_file(t_info *info)
-{
-	t_token			*temp;
-	t_unlink_name	*temp_unlink;
-	size_t			temp_cnt;
-
-	temp_cnt = 0;
-	temp = info->input->head.next;
-	temp_unlink = info->unlink->head.next;
-	while (temp != &info->input->tail)
-	{
-		if (temp->heredoc)
-		{
-			if (valid_heredoc(info, temp))
-			{
-				change_heredoc_file_name(temp->next, \
-				temp_unlink->temp_file_name);
-				temp_unlink = temp_unlink->next;
-			}
-			else
-				return ;
-		}
-		temp = temp->next;
-	}
-}
-
-int	wait_heredoc(int pid)
-{
-	int	status;
-
-	status = 0;
-	waitpid(pid, &status, 0);
-	while (waitpid(-1, 0, 0) != -1)
-		;
-	if (WIFSIGNALED(status))
-	{
-		printf("\n");
-		return (0);
-	}
-	return (1);
 }
 
 int	heredoc(t_info *info)

@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:48:42 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:09:39 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,11 @@ void	print_err(char *s1, char *s2, char *s3);
 int		put_err_redir(char *s1, int e_code);
 
 int		sort_len(char **arr);
+
+char	*create_temp_file_name(size_t *temp_cnt);
+int		valid_heredoc(t_info *info, t_token *temp);
+int		wait_heredoc(int pid);
+void	change_heredoc_file_name(t_token *arg, char *temp_file_name);
+void	change_arg_temp_file(t_info *info);
 
 #endif

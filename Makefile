@@ -6,7 +6,7 @@
 #    By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 19:05:09 by jaeywon           #+#    #+#              #
-#    Updated: 2023/01/19 16:08:05 by jaeywon          ###   ########.fr        #
+#    Updated: 2023/01/19 17:12:43 by suhkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC = main.c \
 	  arg_utils2.c \
 	  del_token.c \
 	  heredoc.c	\
+	  heredoc_utils.c \
 	  unlink.c \
 	  ft_env.c \
 	  ft_echo.c \
