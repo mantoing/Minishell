@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 20:09:06 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 22:33:34 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_info
 	char			*home_dir;
 	int				exit_code;
 	int				pipe_cnt;
+	int				quote;
 }	t_info;
 
 extern int	g_signal;
@@ -100,6 +101,8 @@ int		push_front_unlink(t_unlink *unlink, char *str);
 int		init_info(t_info *info);
 void	init_terminal(void);
 void	init_input_edge(t_input *input);
+void	init_main(int argc, char **argv, char **env, t_info *info);
+
 int		save_env(char **env, t_info *info);
 char	*get_env(t_info *info, char *target, int *i);
 char	*get_env_value(t_info *info, char *name);

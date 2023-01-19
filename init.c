@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 22:58:23 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:33:11 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 22:34:01 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,20 @@ int	init_info(t_info *info)
 	init_unlink(info->unlink);
 	info->exit_code = 0;
 	info->pipe_cnt = 0;
+	info->quote = 0;
 	return (1);
 }
 
-void	init_terminal(void)
+void	init_main(int argc, char **argv, char **env, t_info *info)
 {
+	if (argc != 1)
+	{
+		info->exit_code = print_err_with_exit_num(argv[1], \
+				"No such file or directory", NULL, 127);
+		exit(info->exit_code);
+	}
+	init_info(info);
 	set_terminal_not_echo();
+	set_signal("SHELL");
+	save_env(env, info);
 }

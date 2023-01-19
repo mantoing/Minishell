@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:18:54 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 19:03:39 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 22:13:10 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	cnt_is_three(t_info *info, char *target, int cnt)
 			cnt -= 2;
 		str = ft_substr(target, 0, cnt);
 		info->exit_code = put_err_redir(str, 258);
+		g_signal = 0;
 		free(str);
 		ret = -2;
 	}
@@ -119,7 +120,7 @@ int	is_redir(t_info *info, char *target)
 	else if (*target == '>')
 	{
 		cnt = count_dup_arg(target, '>');
-		ret = sep_cnt(info, target, cnt, 0);
+		ret = sep_cnt(info, target, cnt, 1);
 	}
 	else
 		return (-2);

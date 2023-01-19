@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:29:56 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 22:02:35 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	check_pipe(t_info *info)
 	{
 		info->exit_code = print_err_with_exit_num(\
 				"syntax error near unexpected token '|'", NULL, NULL, 258);
+		g_signal = 0;
 		return (0);
 	}
 	else if (check_closed_pipe(info) == 2)
@@ -43,6 +44,7 @@ static int	check_pipe(t_info *info)
 		info->exit_code = print_err_with_exit_num(\
 				"syntax error near unexpected token '||'", \
 				NULL, NULL, 258);
+		g_signal = 0;
 		return (0);
 	}
 	return (1);
@@ -63,6 +65,7 @@ int	parse(t_info *info, char *line)
 			info->exit_code = print_err_with_exit_num(\
 					"syntax error near unexpected token quotes"\
 					, NULL, NULL, 258);
+			g_signal = 0;
 			return (0);
 		}
 		if (!len)

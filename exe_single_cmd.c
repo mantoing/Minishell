@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 06:48:27 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 19:01:28 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 20:58:10 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ pid_t	exe_single_cmd(t_info *info, t_token *temp)
 	pid = sub_single_cmd(info, arg, pid);
 	if (arg)
 		free_arg(arg, cnt_arg_arr_size(arg));
-	dup2(temp_fd_out, STDOUT_FILENO);
-	dup2(temp_fd_in, STDIN_FILENO);
+	ft_dup2(temp_fd_out, STDOUT_FILENO);
+	ft_dup2(temp_fd_in, STDIN_FILENO);
 	g_signal = 0;
 	return (pid);
 }
