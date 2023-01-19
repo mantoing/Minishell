@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:36:15 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:07:53 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:20:35 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		check_builtin(char *cmd);
 
 char	*check_absol_path(char **arg, t_info *info);
 
-void 	ft_unset(char **arg, t_info *info);
+void	ft_unset(char **arg, t_info *info);
 int		ft_pwd(void);
 int		ft_export_solo(t_info *info);
 int		ft_export_with_arg(t_info *info, char **arg);

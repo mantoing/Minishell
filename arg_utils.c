@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:39:39 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 13:37:34 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:23:40 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	free_arg(char **arg, int arg_size)
 
 int	is_empty_arg(char **arg)
 {
-	if (!arg ||  !*(arg) || !**(arg))
+	if (!arg || !*(arg) || !**(arg))
 		return (1);
 	return (0);
 }

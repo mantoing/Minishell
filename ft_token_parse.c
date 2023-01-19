@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:52:42 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 10:15:50 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:21:47 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_token_parse(t_info *info, t_token *pipe, int *read_fd, int *write_fd)
 	if (!is_empty_arg(arg))
 	{
 		if (check_builtin(*(arg)))
-			exe_builtin(info ,arg, 1);
+			exe_builtin(info, arg, 1);
 		else
 		{
 			execve(check_absol_path(arg, info), arg, \

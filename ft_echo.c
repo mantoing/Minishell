@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 05:32:27 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:52 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:22:08 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	option_n_echo(char *arg)
 int	ft_echo(char **arg)
 {
 	int	i;
-	int flag;
+	int	flag;
 
 	i = 1;
 	if (arg[1] == NULL)

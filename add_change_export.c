@@ -6,13 +6,13 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:51:09 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 14:42:09 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:24:08 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static void change_env(char *value, t_node *env)
+static void	change_env(char *value, t_node *env)
 {
 	free(env->env_value);
 	env->env_value = ft_strdup(value);
@@ -22,7 +22,7 @@ static void change_env(char *value, t_node *env)
 
 static int	push_non_value_env(t_info *info, char *name)
 {
-	t_node *env;
+	t_node	*env;
 
 	env = info->env_stack->head.next;
 	while (env != &info->env_stack->tail)
@@ -41,7 +41,7 @@ static int	push_non_value_env(t_info *info, char *name)
 
 static int	valid_export_arg(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if ((!ft_isalpha(arg[0])) && arg[0] != '_')
@@ -56,7 +56,7 @@ static int	valid_export_arg(char *arg)
 
 static int	add_change_export(char *arg, t_info *info)
 {
-	t_node *env;
+	t_node	*env;
 	int		len;
 	char	*pos;
 	char	*name;

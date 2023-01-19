@@ -6,13 +6,13 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:26:22 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 12:30:19 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:24:38 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-static int run_chdir(t_info *info, char **arg)
+static int	run_chdir(t_info *info, char **arg)
 {
 	char	*temp;
 
@@ -34,7 +34,7 @@ static int run_chdir(t_info *info, char **arg)
 	}
 	if (chdir(arg[1]) < 0)
 	{
-		info->exit_code = print_err_with_exit_num("cd", arg[1],\
+		info->exit_code = print_err_with_exit_num("cd", arg[1], \
 				strerror(errno), 1);
 		return (0);
 	}
@@ -56,7 +56,7 @@ static void	change_oldpwd(t_info *info)
 	target->env_value = get_env_value(info, "PWD");
 }
 
-static void change_pwd(t_info *info)
+static void	change_pwd(t_info *info)
 {
 	char	*cwd;
 	t_node	*target;

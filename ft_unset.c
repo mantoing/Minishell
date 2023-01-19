@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:53:41 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 03:34:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:21:10 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_valid_unset(char **str)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -57,7 +57,7 @@ static void	del_env(t_info *info, char *str)
 	}
 }
 
-void ft_unset(char **arg, t_info *info)
+void	ft_unset(char **arg, t_info *info)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ void ft_unset(char **arg, t_info *info)
 		i = 1;
 		if (!check_valid_unset(arg))
 		{
-			info->exit_code = print_err_with_exit_num("unset", arg[i],\
+			info->exit_code = print_err_with_exit_num("unset", arg[i], \
 					"not a valid identifier", 1);
 			return ;
 		}

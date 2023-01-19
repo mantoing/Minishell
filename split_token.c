@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 01:46:44 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 13:27:19 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:25:45 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	count_dup_arg(char *str, char target)
 	{
 		if (*(str + i) == target)
 			cnt++;
-		else 
+		else
 			break ;
 		i++;
 	}
@@ -152,7 +152,7 @@ int	split_token(t_info *info, char *target)
 				return (1);
 			}
 		}
-		else if ((*(target + i) == '<' ||  *(target + i) == '>') && \
+		else if ((*(target + i) == '<' || *(target + i) == '>') && \
 				quote == 0)
 		{
 			if (ft_strlen(str))

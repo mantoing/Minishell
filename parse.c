@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:26:59 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 13:15:37 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:29:56 by jaeywon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ int	check_closed_pipe(t_info *info)
 	if (info->input->tail.prev->pipe)
 		return (1);
 	return (0);
+}
+
+static int	check_pipe(t_info *info)
+{
+	if (check_closed_pipe(info) == 1)
+	{
+		info->exit_code = print_err_with_exit_num(\
+				"syntax error near unexpected token '|'", NULL, NULL, 258);
+		return (0);
+	}
+	else if (check_closed_pipe(info) == 2)
+	{
+		info->exit_code = print_err_with_exit_num(\
+				"syntax error near unexpected token '||'", \
+				NULL, NULL, 258);
+		return (0);
+	}
+	return (1);
 }
 
 int	parse(t_info *info, char *line)
@@ -52,18 +70,7 @@ int	parse(t_info *info, char *line)
 		else
 			line += len;
 	}
-	if (check_closed_pipe(info) == 1)
-	{
-		info->exit_code = print_err_with_exit_num(\
-				"syntax error near unexpected token '|'", NULL, NULL, 258);
+	if (!check_pipe(info))
 		return (0);
-	}
-	else if (check_closed_pipe(info) == 2)
-	{
-		info->exit_code = print_err_with_exit_num(\
-				"syntax error near unexpected token '||'",\
-				NULL, NULL, 258);
-		return (0);
-	}
 	return (1);
 }
