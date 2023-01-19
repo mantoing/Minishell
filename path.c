@@ -6,28 +6,11 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 07:23:25 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:05:14 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-void	free_temp(char **temp)
-{
-	size_t	i;
-
-	i = 0;
-	if (!temp)
-		return ;
-	if (!*temp)
-	{
-		free(temp);
-		return ;
-	}
-	while (temp[i])
-		free(temp[i++]);
-	free (temp);
-}
 
 int	check_exist_file(char *file)
 {
@@ -84,30 +67,44 @@ static char	*find_env_name(t_info *info)
 	return (NULL);
 }
 
-char	*check_absol_path(char **arg, t_info *info)
+static int	check_file_valid(char **arg, t_info *info)
 {
-	char	*res;
-	char	*path;
-	int		file_valid;
+	int	file_valid;
+	int	ret;
 
-	res = NULL;
-	path = find_env_name(info);
+	ret = 0;
 	if (ft_strchr(arg[0], '/'))
 	{
 		file_valid = check_exist_file(arg[0]);
 		if (file_valid != 1)
 		{
 			if (file_valid == 0)
-				info->exit_code = print_err_with_exit_num(arg[0],\
+				info->exit_code = print_err_with_exit_num(arg[0], \
 						"No such file or directory", NULL, 1);
 			if (file_valid == 2)
 				info->exit_code = print_err_with_exit_num(arg[0], \
 						"Permission denied", NULL, 126);
-			return (0);
+			ret = 1;
 		}
 		else
-			return (ft_strdup(arg[0]));
+			ret = 2;
 	}
+	return (ret);
+}
+
+char	*check_absol_path(char **arg, t_info *info)
+{
+	char	*res;
+	char	*path;
+	int		ret;
+
+	res = NULL;
+	ret = check_file_valid(arg, info);
+	path = find_env_name(info);
+	if (ret == 1)
+		return (0);
+	else if (ret == 2)
+		return (ft_strdup(arg[0]));
 	if (path != NULL)
 		res = handle_cmd_absol_path(info, path, arg);
 	else

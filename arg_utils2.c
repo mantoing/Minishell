@@ -6,7 +6,7 @@
 /*   By: suhkim <suhkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 03:34:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 06:11:14 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:01:54 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,21 @@ void	init_input_edge(t_input *input)
 	input->tail.redir_l = 0;
 	input->tail.redir_r = 0;
 	input->tail.append = 0;
+}
+
+void	free_temp(char **temp)
+{
+	size_t	i;
+
+	i = 0;
+	if (!temp)
+		return ;
+	if (!*temp)
+	{
+		free(temp);
+		return ;
+	}
+	while (temp[i])
+		free(temp[i++]);
+	free (temp);
 }

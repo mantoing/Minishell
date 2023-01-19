@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 07:54:06 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/18 11:22:59 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:08:42 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,15 @@ int	cnt_list_size(t_info *info)
 	return (i);
 }
 
-char	**change_list_to_arr_env(t_info	*info)
+static char	**assign_list(char **arr, char *line, int l_size, t_info *info)
 {
-	char	**arr;
 	int		i;
-	int		list_size;
-	char	*line;
 	t_node	*tmp;
 
 	i = 0;
 	line = NULL;
 	tmp = info->env_stack->head.next;
-	list_size = cnt_list_size(info);
-	arr = (char **)malloc(list_size * (sizeof(char *) + 1));
-	if (!arr)
-		return (NULL);
-	while (i < list_size)
+	while (i < l_size)
 	{
 		line = ft_strdup(tmp->env_name);
 		if (tmp->env_value)
@@ -56,5 +49,22 @@ char	**change_list_to_arr_env(t_info	*info)
 		i++;
 	}
 	arr[i] = 0;
+	return (arr);
+}
+
+char	**change_list_to_arr_env(t_info	*info)
+{
+	char	**arr;
+	int		i;
+	int		list_size;
+	char	*line;
+
+	i = 0;
+	line = NULL;
+	list_size = cnt_list_size(info);
+	arr = (char **)malloc(list_size * (sizeof(char *) + 1));
+	if (!arr)
+		return (NULL);
+	arr = assign_list(arr, line, list_size, info);
 	return (arr);
 }
