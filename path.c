@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 05:49:32 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 15:05:14 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 23:35:41 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*find_env_name(t_info *info)
 	tmp = info->env_stack->head.next;
 	while (tmp != &info->env_stack->tail)
 	{
-		if (!ft_strncmp("PATH", tmp->env_name, ft_strlen(tmp->env_name)))
+		if (!ft_strcmp("PATH", tmp->env_name))
 			return (ft_strdup(tmp->env_value));
 		tmp = tmp->next;
 	}

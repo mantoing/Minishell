@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 07:35:13 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 15:26:05 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 23:36:59 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static char	*find_name_and_value(char *str, t_info *info)
 	tmp = info->env_stack->head.next;
 	while (tmp != &info->env_stack->tail)
 	{
-		if (!ft_strncmp(str, tmp->env_name, ft_strlen(tmp->env_name)))
+		if (!ft_strcmp(str, tmp->env_name))
 		{
 			if (tmp->env_value)
-				return (ft_strdup(tmp->env_value));
+				return (tmp->env_value);
 			return (NULL);
 		}
 		tmp = tmp->next;

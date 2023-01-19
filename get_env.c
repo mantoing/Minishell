@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 02:25:45 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:14:43 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 23:29:46 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static char	*find_value_and_q(t_info *info, char *name, char *str)
 		free(name);
 		return (get_last_exit_code(info));
 	}
+	else
+		free(name);
 	return (NULL);
 }
 

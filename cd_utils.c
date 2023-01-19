@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 20:44:19 by jaeywon           #+#    #+#             */
-/*   Updated: 2023/01/19 16:23:20 by jaeywon          ###   ########.fr       */
+/*   Updated: 2023/01/19 23:35:01 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*find_home(t_info *info)
 	tmp = info->env_stack->head.next;
 	while (tmp != &info->env_stack->tail)
 	{
-		if (!ft_strncmp("HOME", tmp->env_name, ft_strlen(tmp->env_name)))
+		if (!ft_strcmp("HOME", tmp->env_name))
 			return (ft_strdup(tmp->env_value));
 		tmp = tmp->next;
 	}
