@@ -6,7 +6,7 @@
 /*   By: jaeywon <jaeywon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 01:19:41 by suhkim            #+#    #+#             */
-/*   Updated: 2023/01/18 13:50:53 by suhkim           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:56:34 by suhkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void	exe_heredoc(t_token *target, size_t *temp_cnt)
 	close(fd);
 }
 
-
 static int	check_heredoc(t_info *info)
 {
 	t_token	*temp;
@@ -89,7 +88,7 @@ static int	check_heredoc(t_info *info)
 	pid = fork();
 	if (pid == 0)
 	{
- 		while (temp != &info->input->tail)
+		while (temp != &info->input->tail)
  		{
  			if (temp->heredoc)
  			{
@@ -99,7 +98,7 @@ static int	check_heredoc(t_info *info)
 					temp_cnt += 1;
 				}
  				else
- 					return (-1);
+					exit(0);
  			}
  			temp = temp->next;
  		}
