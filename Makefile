@@ -12,9 +12,9 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
-LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
-COMFILE_FLAGS = -I${HOME}/.brew/opt/readline/include
+CFLAGS =
+LINKING_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
+COMFILE_FLAGS = -I/opt/homebrew/opt/readline/include
 SRC = main.c \
 	  push_back_token.c \
 	  push_front_token.c \

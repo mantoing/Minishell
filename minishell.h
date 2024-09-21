@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <termios.h>
 # include <sys/stat.h>
+# include <string.h>
 # include "./libft/libft.h"
 
 typedef struct s_node
